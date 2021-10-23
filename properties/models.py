@@ -1,0 +1,86 @@
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from django.template.defaultfilters import slugify
+from unidecode import unidecode
+import os
+from datetime import date, datetime
+from ckeditor_uploader.fields import RichTextUploadingField
+
+
+# Create your models here.
+def property_wallpaper_path(instance, filename):
+    name, extension = os.path.splitext(filename)
+    return 'property/wallpapers/{0}/{1}{2}'.format(slugify(unidecode(instance.name)), slugify(unidecode(name)), '.jpg')
+
+
+
+class Category(models.Model):
+    title = models.CharField(_('Название'), max_length=255,)
+
+    class Meta:
+        verbose_name = _('Категории')
+        verbose_name_plural = _('Категория')
+
+
+    def __str__(self):
+        return self.title 
+
+
+class Purpose(models.Model):
+    title = models.CharField(_('Название'), max_length=255,)
+
+    class Meta:
+        verbose_name = _('Назначение')
+        verbose_name_plural = _('Назначения')
+
+
+    def __str__(self):
+        return self.title 
+
+
+class Region(models.Model):
+    title = models.CharField(_('Название'), max_length=255,)
+
+    class Meta:
+        verbose_name = _('Регион')
+        verbose_name_plural = _('Регионы')
+
+
+    def __str__(self):
+        return self.title 
+
+
+class Status(models.Model):
+    title = models.CharField(_('Название'), max_length=255,)
+    color = models.CharField(_('Цвет'), max_length=25,)
+
+    class Meta:
+        verbose_name = _('Статус')
+        verbose_name_plural = _('Статусы')
+
+
+    def __str__(self):
+        return self.title 
+
+
+class Property(models.Model):
+    name = models.CharField(_('Название'), max_length=255,)
+    unique_id = models.CharField(_('Артикул'), max_length=255, unique=True, default=f'adria-{datetime.now()}')
+    created_at = models.DateField(_('Дата добавления'), default=date.today())
+    description = RichTextUploadingField(_('Описание'))
+    wallpaper = models.ImageField(_('Главное фото'), max_length=255, upload_to=property_wallpaper_path)
+    rooms = models.PositiveIntegerField(_('Спальни'), default=1)
+    closets = models.PositiveIntegerField(_('Туалеты'), default=1)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='property', verbose_name=_('Категория'))
+    purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='property', verbose_name=_('Назначение'))
+    region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='property', verbose_name=_('Регион'))
+    status = models.ForeignKey('Status', on_delete=models.CASCADE, related_name='property', verbose_name=_('Статус'))
+
+    class Meta:
+        verbose_name = _('Недвижимость')
+        verbose_name_plural = _('Недвижимость')
+
+
+    def __str__(self):
+        return self.name 
+
