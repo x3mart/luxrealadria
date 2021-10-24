@@ -18,6 +18,7 @@ class Category(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
     image = models.ImageField(_('Изображение'), max_length=255, upload_to='categories', null=True, blank=True)
     icon = models.CharField(_('Иконка'), max_length=25, null=True, blank=True)
+    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Категории')
@@ -30,6 +31,7 @@ class Category(models.Model):
 
 class Purpose(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
+    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Назначение')
@@ -42,6 +44,7 @@ class Purpose(models.Model):
 
 class Region(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
+    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Регион')
@@ -55,6 +58,7 @@ class Region(models.Model):
 class Status(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
     color = models.CharField(_('Цвет'), max_length=25,)
+    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Статус')
@@ -78,6 +82,7 @@ class Property(models.Model):
     purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Назначение'))
     region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))
     status = models.ForeignKey('Status', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Статус'))
+    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Недвижимость')

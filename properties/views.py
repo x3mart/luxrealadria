@@ -5,9 +5,10 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models.aggregates import Avg, Min, Max
 from django.db.models import Count
+from django.db.models import Q
 from rest_framework.decorators import api_view
-from properties.serializers import CategorySerializer
-from .models import Category, Property
+from properties.serializers import CategorySerializer, DataForFilterSerializer, PurposeSerializer, RegionSerializer, StatusSerializer
+from .models import Category, Property, Purpose, Region, Status
 
 # Create your views here.
 @api_view(['GET',])
@@ -21,16 +22,63 @@ def get_price_range(request):
         qs = qs.filter(status_id=request.query_params.get('status'))
     if request.query_params.get('region'):
         qs = qs.filter(region_id=request.query_params.get('region'))
+    if request.query_params.get('rooms'):
+        qs = qs.filter(rooms=request.query_params.get('rooms'))
+    if request.query_params.get('closets'):
+        qs = qs.filter(closets=request.query_params.get('closets'))
     price_range = qs.aggregate(max_price=Max('price'), min_price=Min('price'))
     return Response(price_range, status=200)
-    
+
+class FilterData:
+    def __init__(self):
+        pass
+
+
+@api_view(['GET',])
+def get_data_for_filter(request):
+    filter_data = FilterData()
+    filter_data.rooms = Property.objects.filter(is_active=True).distinct().order_by('rooms').values_list('rooms', flat=True)
+    filter_data.closets = Property.objects.filter(is_active=True).distinct().order_by('closets').values_list('closets', flat=True)
+    filter_data.category = Category.objects.filter(is_active=True)
+    filter_data.region = Region.objects.filter(is_active=True)
+    filter_data.status = Status.objects.filter(is_active=True)
+    filter_data.purpose = Purpose.objects.filter(is_active=True)
+    return Response(DataForFilterSerializer(filter_data).data)
+
+
+@api_view(['GET',])
+def get_rooms(request):
+    qs = Property.objects.filter(is_active=True).distinct().order_by('rooms')
+    rooms = qs.values_list('rooms', flat=True)
+    return Response(rooms, status=200)
+
+
+@api_view(['GET',])
+def get_closets(request):
+    qs = Property.objects.filter(is_active=True).distinct().order_by('closets')
+    closets = qs.values_list('closets', flat=True)
+    return Response(closets, status=200)
+
+
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Category.objects.annotate(properties_count=Count('properties'))
+    queryset = Category.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
 
-    def get_queryset(self):
-        get_price_range(self.request)
-        return super().get_queryset()
 
-    
+class StatusViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Status.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
+    serializer_class = StatusSerializer
+    permission_classes = [AllowAny]
+
+
+class PurposeViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Status.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
+    serializer_class = PurposeSerializer
+    permission_classes = [AllowAny]  
+
+
+class RegionViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Status.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
+    serializer_class = RegionSerializer
+    permission_classes = [AllowAny]
