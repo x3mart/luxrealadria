@@ -2,7 +2,7 @@ from django.db.models import fields
 from rest_framework import serializers
 from legals.models import FAQItem
 
-from properties.serializers import CategorySerializer
+from properties.serializers import CategorySerializer, PropertySerializer
 from siteelements.models import FAQ
 
 
@@ -25,5 +25,5 @@ class HomePageSerializer(serializers.Serializer):
     wallpaper = serializers.ImageField(read_only=True, )
     categories = CategorySerializer(read_only=True, many=True)
     faq = FAQSerializer(read_only=True, many=True)
-    # trends
-    # recently_added
+    trends = PropertySerializer(read_only=True, many=True)
+    recently_added = PropertySerializer(read_only=True, many=True)

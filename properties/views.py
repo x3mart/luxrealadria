@@ -7,7 +7,7 @@ from django.db.models.aggregates import Avg, Min, Max
 from django.db.models import Count
 from django.db.models import Q
 from rest_framework.decorators import api_view
-from properties.serializers import CategorySerializer, DataForFilterSerializer, PurposeSerializer, RegionSerializer, StatusSerializer
+from properties.serializers import CategorySerializer, DataForFilterSerializer, PropertySerializer, PurposeSerializer, RegionSerializer, StatusSerializer
 from siteelements.models import FAQ, Homepage
 from .models import Category, Property, Purpose, Region, Status
 
@@ -84,4 +84,10 @@ class PurposeViewSet(viewsets.ReadOnlyModelViewSet):
 class RegionViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Status.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
     serializer_class = RegionSerializer
+    permission_classes = [AllowAny]
+
+
+class PropertyViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Status.objects.filter(is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related('status').prefetch_related('region').prefetch_related('purpose')
+    serializer_class = PropertySerializer
     permission_classes = [AllowAny]
