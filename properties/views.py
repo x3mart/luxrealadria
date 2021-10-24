@@ -8,9 +8,16 @@ from django.db.models import Count
 from django.db.models import Q
 from rest_framework.decorators import api_view
 from properties.serializers import CategorySerializer, DataForFilterSerializer, PurposeSerializer, RegionSerializer, StatusSerializer
+from siteelements.models import FAQ, Homepage
 from .models import Category, Property, Purpose, Region, Status
 
 # Create your views here.
+
+class SomeData:
+    def __init__(self):
+        pass
+
+
 @api_view(['GET',])
 def get_price_range(request):
     qs = Property.objects.only('price')
@@ -29,14 +36,10 @@ def get_price_range(request):
     price_range = qs.aggregate(max_price=Max('price'), min_price=Min('price'))
     return Response(price_range, status=200)
 
-class FilterData:
-    def __init__(self):
-        pass
-
 
 @api_view(['GET',])
 def get_data_for_filter(request):
-    filter_data = FilterData()
+    filter_data = SomeData()
     filter_data.rooms = Property.objects.filter(is_active=True).distinct().order_by('rooms').values_list('rooms', flat=True)
     filter_data.closets = Property.objects.filter(is_active=True).distinct().order_by('closets').values_list('closets', flat=True)
     filter_data.category = Category.objects.filter(is_active=True)

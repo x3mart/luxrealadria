@@ -34,6 +34,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # path to my app's endpoints
     path("api/", include("properties.urls")),
+    path("api/", include("siteelements.urls")),
 ]
 
 urlpatterns += i18n_patterns()

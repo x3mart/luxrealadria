@@ -14,7 +14,7 @@ class LegalInfo(models.Model):
 
 
 class FAQ(models.Model):
-    title = models.CharField(_('Название'), max_length=255,)
+    title = models.CharField(_('Заголовок'), max_length=255,)
     subtitle = models.CharField(_('Подзаголовок'), max_length=255,)
     
     class Meta:
@@ -45,3 +45,16 @@ class Contact(models.Model):
 
     def __str__(self):
         return 'контакты' 
+
+
+class Homepage(models.Model):
+    title = models.CharField(_('Заголовок'), max_length=255,)
+    subtitle = models.CharField(_('Подзаголовок'), max_length=255,)
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='walpaper',)
+
+    class Meta:
+        verbose_name = _('Домашняя страница')
+        verbose_name_plural = _('Домашняя страница')
+        
+    def __str__(self):
+        return 'Домашняя страница'
