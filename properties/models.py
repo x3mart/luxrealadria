@@ -16,6 +16,8 @@ def property_wallpaper_path(instance, filename):
 
 class Category(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
+    image = models.ImageField(_('Изображение'), max_length=255, upload_to='categories', null=True, blank=True)
+    icon = models.CharField(_('Иконка'), max_length=25, null=True, blank=True)
 
     class Meta:
         verbose_name = _('Категории')
@@ -65,16 +67,17 @@ class Status(models.Model):
 
 class Property(models.Model):
     name = models.CharField(_('Название'), max_length=255,)
+    price = models.PositiveIntegerField(_('Цена'), default=0)
     unique_id = models.CharField(_('Артикул'), max_length=255, unique=True, default=f'adria-{datetime.now()}')
     created_at = models.DateField(_('Дата добавления'), default=date.today())
     description = RichTextUploadingField(_('Описание'))
     wallpaper = models.ImageField(_('Главное фото'), max_length=255, upload_to=property_wallpaper_path)
     rooms = models.PositiveIntegerField(_('Спальни'), default=1)
     closets = models.PositiveIntegerField(_('Туалеты'), default=1)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='property', verbose_name=_('Категория'))
-    purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='property', verbose_name=_('Назначение'))
-    region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='property', verbose_name=_('Регион'))
-    status = models.ForeignKey('Status', on_delete=models.CASCADE, related_name='property', verbose_name=_('Статус'))
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Категория'))
+    purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Назначение'))
+    region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))
+    status = models.ForeignKey('Status', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Статус'))
 
     class Meta:
         verbose_name = _('Недвижимость')
