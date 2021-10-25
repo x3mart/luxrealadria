@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from legals.models import FAQItem
+from legals.models import FAQItem, LegalInfoItem
 
 from properties.serializers import CategorySerializer, PropertySerializer
 from siteelements.models import FAQ
@@ -27,3 +27,23 @@ class HomePageSerializer(serializers.Serializer):
     faq = FAQSerializer(read_only=True, many=True)
     trends = PropertySerializer(read_only=True, many=True)
     recently_added = PropertySerializer(read_only=True, many=True)
+
+
+class LegaInfoItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LegalInfoItem
+        fields = '__all__'
+
+class LegalIfoPageSerializer(serializers.Serializer):
+    wallpaper = serializers.ImageField(read_only=True, )
+    legal_info_items = LegaInfoItemSerializer(read_only=True, many=True)
+
+
+class ContactItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LegalInfoItem
+        fields = '__all__'
+
+class ContactPageSerializer(serializers.Serializer):
+    wallpaper = serializers.ImageField(read_only=True, )
+    contact_items = ContactItemSerializer(read_only=True, many=True)
