@@ -18,11 +18,13 @@ class Category(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
     image = models.ImageField(_('Изображение'), max_length=255, upload_to='categories', null=True, blank=True)
     icon = models.CharField(_('Иконка'), max_length=25, null=True, blank=True)
-    is_active = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(_('Позиция'), default=1)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Категории')
         verbose_name_plural = _('Категория')
+        ordering = ['-order', '-id']
 
 
     def __str__(self):
@@ -31,7 +33,7 @@ class Category(models.Model):
 
 class Purpose(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Назначение')
@@ -44,7 +46,7 @@ class Purpose(models.Model):
 
 class Region(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Регион')
@@ -58,7 +60,7 @@ class Region(models.Model):
 class Status(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
     color = models.CharField(_('Цвет'), max_length=25,)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Статус')
