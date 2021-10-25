@@ -74,7 +74,7 @@ class Status(models.Model):
 class Property(models.Model):
     name = models.CharField(_('Название'), max_length=255,)
     price = models.PositiveIntegerField(_('Цена'), default=0)
-    unique_id = models.CharField(_('Артикул'), max_length=255, unique=True, default=f'adria-{datetime.now()}')
+    unique_id = models.CharField(_('Артикул'), max_length=255, unique=True, default=f'adria-{datetime.now():%Y-%m-%d-%H-%M-%S}')
     created_at = models.DateField(_('Дата добавления'), default=date.today())
     description = RichTextUploadingField(_('Описание'))
     wallpaper = models.ImageField(_('Главное фото'), max_length=255, upload_to=property_wallpaper_path)
@@ -84,6 +84,7 @@ class Property(models.Model):
     purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Назначение'))
     region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))
     status = models.ForeignKey('Status', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Статус'))
+    is_trend = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
     class Meta:

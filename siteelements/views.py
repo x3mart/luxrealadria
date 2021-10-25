@@ -17,7 +17,7 @@ def get_homepage(request):
     home.subtitle = home_page.subtitle
     home.wallpaper = home_page.wallpaper
     home.categories = Category.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
-    home.trends = Property.objects.filter(status_id=2).prefetch_related('property_gallary').prefetch_related('category').prefetch_related('status').prefetch_related('region').prefetch_related('purpose')
+    home.trends = Property.objects.filter(is_trend=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related('status').prefetch_related('region').prefetch_related('purpose')
     home.recently_added = Property.objects.prefetch_related('property_gallary').prefetch_related('category').prefetch_related('status').prefetch_related('region').prefetch_related('purpose').order_by('-created_at')[:3]
     home.faq = FAQ.objects.prefetch_related('faq_items').first()
     return Response(HomePageSerializer(home).data)
