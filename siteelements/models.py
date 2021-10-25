@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 class LegalInfo(models.Model):
-    image = models.ImageField(_('Изображение'), max_length=255, upload_to='legalinfo',)
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='legalinfo',)
 
     class Meta:
         verbose_name = _('Юр инфа Изображение')
@@ -37,7 +37,7 @@ class SiteLogo(models.Model):
 
 
 class Contact(models.Model):
-    image = models.ImageField(_('Изображение'), max_length=255, upload_to='contacts',)
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='contacts',)
 
     class Meta:
         verbose_name = _('Контакты Изображение')
@@ -46,6 +46,16 @@ class Contact(models.Model):
     def __str__(self):
         return 'контакты' 
 
+
+class UsefullArticle(models.Model):
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='article',)
+
+    class Meta:
+        verbose_name = _('Полезные статьи Изображение')
+        verbose_name_plural = _('Полезные статьи Изображение')
+
+    def __str__(self):
+        return 'контакты'
 
 class Homepage(models.Model):
     title = models.CharField(_('Заголовок'), max_length=255,)
