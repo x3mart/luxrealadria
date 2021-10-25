@@ -24,7 +24,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = _('Категории')
         verbose_name_plural = _('Категория')
-        ordering = ['-order', '-id']
+        ordering = ['order', '-id']
 
 
     def __str__(self):
