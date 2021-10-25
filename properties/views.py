@@ -1,14 +1,14 @@
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
-from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models.aggregates import Avg, Min, Max
 from django.db.models import Count
 from django.db.models import Q
 from rest_framework.decorators import api_view
+from properties.filters import PropertyFilter
+from properties.paginations import PropertyPagination
 from properties.serializers import CategorySerializer, DataForFilterSerializer, PropertySerializer, PurposeSerializer, RegionSerializer, StatusSerializer
-from siteelements.models import FAQ, Homepage
 from .models import Category, Property, Purpose, Region, Status
 
 # Create your views here.
@@ -88,6 +88,9 @@ class RegionViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PropertyViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Status.objects.filter(is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related('status').prefetch_related('region').prefetch_related('purpose')
+    queryset = Property.objects.filter(is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related('status').prefetch_related('region').prefetch_related('purpose')
     serializer_class = PropertySerializer
     permission_classes = [AllowAny]
+    filter_backend = [DjangoFilterBackend]
+    filterset_class = PropertyFilter
+    pagination_class = PropertyPagination

@@ -83,7 +83,7 @@ class Property(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Категория'))
     purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Назначение'))
     region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))
-    status = models.ForeignKey('Status', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Статус'))
+    status = models.ManyToManyField('Status', related_name='properties', verbose_name=_('Статус'))
     is_trend = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
