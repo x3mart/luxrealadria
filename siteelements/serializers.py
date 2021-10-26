@@ -24,7 +24,7 @@ class HomePageSerializer(serializers.Serializer):
     subtitle = serializers.CharField(read_only=True, )
     wallpaper = serializers.ImageField(read_only=True, )
     categories = CategorySerializer(read_only=True, many=True)
-    faq = FAQSerializer(read_only=True, many=True)
+    faq = FAQSerializer(read_only=True, many=False)
     trends = PropertySerializer(read_only=True, many=True)
     recently_added = PropertySerializer(read_only=True, many=True)
 
