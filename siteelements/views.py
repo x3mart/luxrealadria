@@ -22,7 +22,7 @@ def get_home_page(request):
     home.categories = Category.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
     home.trends = Property.objects.filter(is_trend=True).filter(is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related('statuses').prefetch_related('region').prefetch_related('purpose')[:5]
     home.recently_added = Property.objects.filter(is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related('statuses').prefetch_related('region').prefetch_related('purpose').order_by('-created_at')[:5]
-    home.faq = FAQ.objects.filter(is_active=True).prefetch_related('faq_items').first()
+    home.faq = FAQ.objects.prefetch_related('faq_items').first()
     return Response(HomePageSerializer(home).data)
 
 @api_view(['GET',])
