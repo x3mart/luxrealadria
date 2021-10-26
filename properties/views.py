@@ -1,3 +1,4 @@
+from django.db.models.query import Prefetch
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
@@ -6,6 +7,7 @@ from django.db.models.aggregates import Avg, Min, Max
 from django.db.models import Count
 from django.db.models import Q
 from rest_framework.decorators import api_view
+from utils.filters import get_active_with_properties, get_filtered_data
 from properties.filters import PropertyFilter
 from properties.paginations import PropertyPagination
 from properties.serializers import CategorySerializer, DataForFilterSerializer, PropertySerializer, PurposeSerializer, RegionSerializer, StatusSerializer
@@ -20,19 +22,7 @@ class SomeData:
 
 @api_view(['GET',])
 def get_price_range(request):
-    qs = Property.objects.only('price')
-    if request.query_params.get('category'):
-        qs = qs.filter(category_id=request.query_params.get('category'))
-    if request.query_params.get('purpose'):
-        qs = qs.filter(purpose_id=request.query_params.get('purpose'))
-    if request.query_params.get('status'):
-        qs = qs.filter(status_id=request.query_params.get('status'))
-    if request.query_params.get('region'):
-        qs = qs.filter(region_id=request.query_params.get('region'))
-    if request.query_params.get('rooms'):
-        qs = qs.filter(rooms=request.query_params.get('rooms'))
-    if request.query_params.get('closets'):
-        qs = qs.filter(closets=request.query_params.get('closets'))
+    qs = get_filtered_data(Property, request)
     price_range = qs.aggregate(max_price=Max('price'), min_price=Min('price'))
     return Response(price_range, status=200)
 
@@ -42,10 +32,10 @@ def get_data_for_filter(request):
     filter_data = SomeData()
     filter_data.rooms = Property.objects.filter(is_active=True).distinct().order_by('rooms').values_list('rooms', flat=True)
     filter_data.closets = Property.objects.filter(is_active=True).distinct().order_by('closets').values_list('closets', flat=True)
-    filter_data.category = Category.objects.filter(is_active=True)
-    filter_data.region = Region.objects.filter(is_active=True)
-    filter_data.status = Status.objects.filter(is_active=True)
-    filter_data.purpose = Purpose.objects.filter(is_active=True)
+    filter_data.categories = get_active_with_properties(Category)
+    filter_data.statuses = get_active_with_properties(Status)
+    filter_data.regions = get_active_with_properties(Region)
+    filter_data.purposes = get_active_with_properties(Purpose)
     return Response(DataForFilterSerializer(filter_data).data)
 
 
@@ -64,31 +54,33 @@ def get_closets(request):
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Category.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
+    queryset = get_active_with_properties(Category)
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
 
 
 class StatusViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Status.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
+    queryset = get_active_with_properties(Status)
     serializer_class = StatusSerializer
     permission_classes = [AllowAny]
 
 
 class PurposeViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Status.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
+    queryset = get_active_with_properties(Purpose)
     serializer_class = PurposeSerializer
     permission_classes = [AllowAny]  
 
 
 class RegionViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Status.objects.filter(is_active=True).annotate(properties_count=Count('properties', filter=Q(properties__is_active=True)))
+    queryset = get_active_with_properties(Region)
     serializer_class = RegionSerializer
     permission_classes = [AllowAny]
 
 
 class PropertyViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Property.objects.filter(is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related('status').prefetch_related('region').prefetch_related('purpose')
+    statuses = Status.objects.filter(is_active=True)
+    prefetch_statuses = Prefetch('statuses', queryset=statuses)
+    queryset = Property.objects.filter(is_active=True).filter(category__is_active=True).filter(purpose__is_active=True).filter(region__is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related(prefetch_statuses).prefetch_related('region').prefetch_related('purpose')
     serializer_class = PropertySerializer
     permission_classes = [AllowAny]
     filter_backend = [DjangoFilterBackend]

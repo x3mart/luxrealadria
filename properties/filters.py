@@ -9,4 +9,4 @@ class PropertyFilter(filters.FilterSet):
 
     class Meta:
         model = Property
-        fields = ['category', 'status', 'purpose', 'region', 'rooms', 'closets',]
+        fields = ['category', 'statuses', 'purpose', 'region', 'rooms', 'closets',]

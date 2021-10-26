@@ -19,24 +19,24 @@ class StatusSerializer(serializers.ModelSerializer):
 
 
 class PurposeSerializer(serializers.ModelSerializer):
-    # properties_count = serializers.IntegerField(read_only=True)
+    properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Purpose
         fields = '__all__'
 
 
 class RegionSerializer(serializers.ModelSerializer):
-    # properties_count = serializers.IntegerField(read_only=True)
+    properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Region
         fields = '__all__'
 
 
 class DataForFilterSerializer(serializers.Serializer):
-    category = CategorySerializer(read_only=True, many=True)
-    region = RegionSerializer(read_only=True, many=True)
-    status = StatusSerializer(read_only=True, many=True)
-    purpose = PurposeSerializer(read_only=True, many=True)
+    categories = CategorySerializer(read_only=True, many=True)
+    regions = RegionSerializer(read_only=True, many=True)
+    statuses = StatusSerializer(read_only=True, many=True)
+    purposes = PurposeSerializer(read_only=True, many=True)
     rooms = serializers.SerializerMethodField()
     closets = serializers.SerializerMethodField()
 
@@ -56,7 +56,7 @@ class PropertySerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True, many=False)
     purpose = PurposeSerializer(read_only=True, many=False)
     region = RegionSerializer(read_only=True, many=False)
-    status = StatusSerializer(read_only=True, many=False)
+    statuses = StatusSerializer(read_only=True, many=True)
     class Meta:
         model = Property
         fields = '__all__'
