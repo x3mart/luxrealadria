@@ -76,7 +76,7 @@ class Property(models.Model):
     name = models.CharField(_('Название'), max_length=255,)
     price = models.PositiveIntegerField(_('Цена'), default=0)
     unique_id = models.CharField(_('Артикул'), max_length=255, unique=True, default=f'adria-{timezone.now():%Y-%m-%d-%H-%M-%S}')
-    created_at = models.DateField(_('Дата добавления'), default=timezone.now().date())
+    created_at = models.DateField(_('Дата добавления'), default=timezone.now)
     description = RichTextUploadingField(_('Описание'))
     wallpaper = models.ImageField(_('Главное фото'), max_length=255, upload_to=property_wallpaper_path)
     rooms = models.PositiveIntegerField(_('Спальни'), default=1)
