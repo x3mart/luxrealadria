@@ -1,7 +1,4 @@
 from rest_framework.response import Response
-from rest_framework import viewsets
-from django.db.models import Count
-from django.db.models import Q
 from rest_framework.decorators import api_view
 from contacts.models import ContactItem
 from legals.models import FAQItem, LegalInfoItem

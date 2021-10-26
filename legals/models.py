@@ -30,6 +30,6 @@ class FAQItem(models.Model):
         verbose_name_plural = _('Элементы FAQ')
         
     def __str__(self):
-        return Truncator(self.question).chars(15)
+        return Truncator(self.question).chars(25)
 
 
