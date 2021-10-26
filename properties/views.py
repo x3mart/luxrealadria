@@ -7,7 +7,7 @@ from django.db.models.aggregates import Avg, Min, Max
 from django.db.models import Count
 from django.db.models import Q
 from rest_framework.decorators import api_view
-from utils.filters import get_active_with_properties, get_filtered_data
+from utils.filters import get_active_and_has_properties, get_filtered_data
 from properties.filters import PropertyFilter
 from properties.paginations import PropertyPagination
 from properties.serializers import CategorySerializer, DataForFilterSerializer, PropertySerializer, PurposeSerializer, RegionSerializer, StatusSerializer
@@ -32,10 +32,10 @@ def get_data_for_filter(request):
     filter_data = SomeData()
     filter_data.rooms = Property.objects.filter(is_active=True).distinct().order_by('rooms').values_list('rooms', flat=True)
     filter_data.closets = Property.objects.filter(is_active=True).distinct().order_by('closets').values_list('closets', flat=True)
-    filter_data.categories = get_active_with_properties(Category)
-    filter_data.statuses = get_active_with_properties(Status)
-    filter_data.regions = get_active_with_properties(Region)
-    filter_data.purposes = get_active_with_properties(Purpose)
+    filter_data.categories = get_active_and_has_properties(Category)
+    filter_data.statuses = get_active_and_has_properties(Status)
+    filter_data.regions = get_active_and_has_properties(Region)
+    filter_data.purposes = get_active_and_has_properties(Purpose)
     return Response(DataForFilterSerializer(filter_data).data)
 
 
@@ -54,25 +54,25 @@ def get_closets(request):
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = get_active_with_properties(Category)
+    queryset = get_active_and_has_properties(Category)
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
 
 
 class StatusViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = get_active_with_properties(Status)
+    queryset = get_active_and_has_properties(Status)
     serializer_class = StatusSerializer
     permission_classes = [AllowAny]
 
 
 class PurposeViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = get_active_with_properties(Purpose)
+    queryset = get_active_and_has_properties(Purpose)
     serializer_class = PurposeSerializer
     permission_classes = [AllowAny]  
 
 
 class RegionViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = get_active_with_properties(Region)
+    queryset = get_active_and_has_properties(Region)
     serializer_class = RegionSerializer
     permission_classes = [AllowAny]
 
