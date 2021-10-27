@@ -23,6 +23,7 @@ class PropertyAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_active', 'is_trend', 'region_colored', 'purpose_colored', 'category_colored')
     list_editable = ('is_active', 'is_trend')
     readonly_fields = ('unique_id',)
+    list_filter = ('is_active', 'is_trend', 'purpose', 'region', 'category', )
     inlines = [
         PropertyImageInline,
     ]

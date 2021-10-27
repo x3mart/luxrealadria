@@ -6,10 +6,11 @@ from .models import Logo, PropertyImage
 class PropertyImageAdmin(admin.ModelAdmin):
     model = PropertyImage
     list_display = ('get_photo', 'get_property_name')
+    list_display_links = ('get_photo',)
 
     def get_photo(self, obj):
         if obj.image:
-            return mark_safe(f'<a href={obj.image.url} target="_blank"><img src="{obj.image.url}" width="45"></a>')
+            return mark_safe(f'<img src="{obj.tmb_image}" width="55">')
         else:
             return '-'
     
