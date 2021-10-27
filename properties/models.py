@@ -3,9 +3,9 @@ from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
 from unidecode import unidecode
 import os
-from datetime import date, datetime
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
+from utils.images import get_tmb_path
 
 
 # Create your models here.
@@ -111,4 +111,11 @@ class Property(models.Model):
 
     def __str__(self):
         return self.name 
+    
+    @property
+    def tmb_wallpaper(self):
+        if self.wallpaper:
+            tmb_path = get_tmb_path(self.wallpaper.url)
+            return tmb_path
+        return None
 

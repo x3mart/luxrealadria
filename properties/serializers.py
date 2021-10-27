@@ -60,6 +60,13 @@ class PropertySerializer(serializers.ModelSerializer):
     region = RegionSerializer(read_only=True, many=False)
     statuses = StatusSerializer(read_only=True, many=True)
     features = FeatureSerializer(read_only=True, many=True)
+    tmb_wallpaper = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Property
         fields = '__all__'
+
+    def get_tmb_wallpaper(self, obj):
+            if obj.image:
+                request = self.context.get('request')
+                return request.build_absolute_uri(obj.tmb_wallpaper) 
+            return None
