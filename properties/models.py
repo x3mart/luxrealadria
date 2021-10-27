@@ -74,8 +74,16 @@ class Status(models.Model):
 
 class Feature(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
-    icon = models.CharField(_('Цвет'), max_length=55,)
+    icon = models.CharField(_('Иконка'), max_length=55,)
     is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = _('Особенность')
+        verbose_name_plural = _('Особенности')
+
+
+    def __str__(self):
+        return self.title
 
 
 class Property(models.Model):
