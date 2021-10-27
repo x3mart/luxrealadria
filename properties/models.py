@@ -69,7 +69,12 @@ class Status(models.Model):
 
 
     def __str__(self):
-        return self.title 
+        return self.title
+
+
+class Feature(models.Model):
+    title = models.CharField(_('Название'), max_length=255,)
+    icon = models.CharField(_('Цвет'), max_length=55,)
 
 
 class Property(models.Model):
@@ -79,12 +84,14 @@ class Property(models.Model):
     created_at = models.DateField(_('Дата добавления'), default=timezone.now)
     description = RichTextUploadingField(_('Описание'))
     wallpaper = models.ImageField(_('Главное фото'), max_length=255, upload_to=property_wallpaper_path)
+    video  = models.URLField(_('Видео'), max_length=255,null=True, blank=True)
     rooms = models.PositiveIntegerField(_('Спальни'), default=1)
     closets = models.PositiveIntegerField(_('Туалеты'), default=1)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Категория'))
     purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Назначение'))
     region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))
     statuses = models.ManyToManyField('Status', related_name='properties', verbose_name=_('Статус'))
+    features = models.ManyToManyField('Feature', related_name='properties', verbose_name=_('Особенности'))
     is_trend = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 

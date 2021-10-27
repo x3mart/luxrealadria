@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from images.models import PropertyImage
-
-from properties.models import Category, Property, Purpose, Region, Status
+from images.serializers import PropertyGallarySerializer
+from properties.models import Category, Feature, Property, Purpose, Region, Status
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -32,6 +31,13 @@ class RegionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class FeatureSerializer(serializers.ModelSerializer):
+    properties_count = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = Feature
+        fields = '__all__'
+
+
 class DataForFilterSerializer(serializers.Serializer):
     categories = CategorySerializer(read_only=True, many=True)
     regions = RegionSerializer(read_only=True, many=True)
@@ -47,16 +53,13 @@ class DataForFilterSerializer(serializers.Serializer):
         return obj.closets
 
 
-class PropertyGallarySerializer(serializers.ModelSerializer):
-    model = PropertyImage
-    fields = '__all__'
-
 class PropertySerializer(serializers.ModelSerializer):
     property_gallary = PropertyGallarySerializer(read_only=True, many=True)
     category = CategorySerializer(read_only=True, many=False)
     purpose = PurposeSerializer(read_only=True, many=False)
     region = RegionSerializer(read_only=True, many=False)
     statuses = StatusSerializer(read_only=True, many=True)
+    features = FeatureSerializer(read_only=True, many=True)
     class Meta:
         model = Property
         fields = '__all__'

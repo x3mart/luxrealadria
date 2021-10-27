@@ -24,6 +24,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf.urls.i18n import i18n_patterns
 import debug_toolbar
+from accounts.views import MyTokenObtainPairView
+from rest_framework_simplejwt.views import TokenRefreshView
 
 
 urlpatterns = [
@@ -31,6 +33,8 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('api-auth/', include('rest_framework.urls')),
     path('auth/', include('djoser.urls')),
+    path('auth/jwt/create/', MyTokenObtainPairView.as_view(), name='site_login'),
+    path('auth/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # path to my app's endpoints
     path("api/", include("properties.urls")),

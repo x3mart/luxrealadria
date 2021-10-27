@@ -16,7 +16,7 @@ def property_image_path(instance, filename):
 
 class Logo(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
-    sub_title = models.CharField(_('Подзаголовок'), max_length=255,  null=True, blank=True,)
+    subtitle = models.CharField(_('Подзаголовок'), max_length=255,  null=True, blank=True,)
     image = models.ImageField(_('Изображение'), max_length=255, upload_to=logo_path, null=True, blank=True,)
 
     class Meta:
