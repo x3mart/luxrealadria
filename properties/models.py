@@ -75,6 +75,7 @@ class Status(models.Model):
 class Feature(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
     icon = models.CharField(_('Цвет'), max_length=55,)
+    is_active = models.BooleanField(default=True)
 
 
 class Property(models.Model):

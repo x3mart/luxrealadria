@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from properties.models import Category, Property, Purpose, Region, Status
+from properties.models import Category, Feature, Property, Purpose, Region, Status
 
 # Register your models here.
 class PropertyAdmin(admin.ModelAdmin):
@@ -8,13 +8,14 @@ class PropertyAdmin(admin.ModelAdmin):
     list_editable = ('is_active', 'is_trend')
 
 
-class CPRSAdmin(admin.ModelAdmin):
+class CPRSFAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_active')
     list_editable = ('is_active',)
 
 
-admin.site.register(Category, CPRSAdmin)
-admin.site.register(Purpose, CPRSAdmin)
-admin.site.register(Region, CPRSAdmin)
-admin.site.register(Status, CPRSAdmin)
+admin.site.register(Category, CPRSFAdmin)
+admin.site.register(Purpose, CPRSFAdmin)
+admin.site.register(Region, CPRSFAdmin)
+admin.site.register(Status, CPRSFAdmin)
+admin.site.register(Feature, CPRSFAdmin)
 admin.site.register(Property, PropertyAdmin)
