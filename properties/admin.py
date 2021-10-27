@@ -27,14 +27,19 @@ class PropertyAdmin(admin.ModelAdmin):
     ]
 
 
-class CPRSFAdmin(admin.ModelAdmin):
+class PRSFAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_active')
     list_editable = ('is_active',)
 
 
-admin.site.register(Category, CPRSFAdmin)
-admin.site.register(Purpose, CPRSFAdmin)
-admin.site.register(Region, CPRSFAdmin)
-admin.site.register(Status, CPRSFAdmin)
-admin.site.register(Feature, CPRSFAdmin)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_active', 'order')
+    list_editable = ('is_active', 'order')
+
+
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Purpose, PRSFAdmin)
+admin.site.register(Region, PRSFAdmin)
+admin.site.register(Status, PRSFAdmin)
+admin.site.register(Feature, PRSFAdmin)
 admin.site.register(Property, PropertyAdmin)
