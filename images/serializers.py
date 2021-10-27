@@ -9,7 +9,7 @@ class PropertyGallarySerializer(serializers.ModelSerializer):
         fields =  '__all__'
     
     def get_tmb_image(self, obj):
-        if obj.tmb_image:
+        if obj.image:
             request = self.context.get('request')
             return request.build_absolute_uri(obj.tmb_image) 
         return None 

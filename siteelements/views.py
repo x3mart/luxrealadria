@@ -25,7 +25,7 @@ def get_home_page(request):
         home.trends = properties.filter(is_trend=True)[:5]
         home.recently_added = properties.order_by('-created_at')[:5]
         home.faq = FAQ.objects.prefetch_related(prefetch_faq_items).first()
-        return Response(HomePageSerializer(home).data)
+        return Response(HomePageSerializer(home, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по Домашней сранице, Admin должен создать раздел через панель администратора')
 
@@ -35,7 +35,7 @@ def get_legal_info_page(request):
         legal_info_items = LegalInfoItem.objects.filter(is_active=True)
         prefetch_legal_info_items = Prefetch('legal_info_items', queryset=legal_info_items)
         legal_info = LegalInfo.objects.prefetch_related(prefetch_legal_info_items).first()
-        Response(LegalIfoPageSerializer(legal_info).data)
+        return Response(LegalIfoPageSerializer(legal_info, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по Юридическому разделу, Admin должен создать раздел через панель администратора')
 
@@ -45,6 +45,6 @@ def get_contacts_page(request):
         contact_items = ContactItem.objects.filter(is_active=True)
         prefetch_contact_items = Prefetch('contact_items', queryset=contact_items)
         contact = LegalInfo.objects.prefetch_related(prefetch_contact_items).first()
-        Response(ContactPageSerializer(contact).data)
+        return Response(ContactPageSerializer(contact, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по разделу Контакты, Admin должен создать раздел через панель администратора')
