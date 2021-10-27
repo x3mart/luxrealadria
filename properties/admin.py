@@ -7,7 +7,7 @@ from properties.models import Category, Feature, Property, Purpose, Region, Stat
 class PropertyImageInline(admin.TabularInline):
     model = PropertyImage
     readonly_fields = ('get_photo',)
-    fieldsets = ((None, {'fields':('get_photo','image')}),)
+    fieldsets = ((None, {'fields':('get_photo','image',)}),)
     extra = 4
 
     def get_photo(self, obj):
@@ -22,9 +22,9 @@ class PropertyAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_active', 'is_trend', 'region', 'purpose', 'category')
     list_editable = ('is_active', 'is_trend')
     readonly_fields = ('unique_id',)
-    # inlines = [
-    #     PropertyImageInline,
-    # ]
+    inlines = [
+        PropertyImageInline,
+    ]
 
 
 class CPRSFAdmin(admin.ModelAdmin):
