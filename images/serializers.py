@@ -1,12 +1,13 @@
 from rest_framework import serializers
-from images.models import PropertyImage
+from images.models import Logo, PropertyImage
 
 
 class PropertyGallarySerializer(serializers.ModelSerializer):
-    model = PropertyImage
-    fields = '__all__'
-
+    class Meta:
+        model = PropertyImage
+        fields =  '__all__'
 
 class LogoSerializer(serializers.ModelSerializer):
-    model = PropertyImage
-    fields = '__all__'
+    class Meta:
+        model = Logo
+        fields = '__all__'

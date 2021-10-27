@@ -1,7 +1,7 @@
 from django.db.models import Count
 from django.db.models import Q
 from django.db.models import Prefetch
-from properties.models import Property, Status
+from properties.models import Feature, Property, Status
 
 
 def get_active_and_has_properties(model):
@@ -26,4 +26,6 @@ def get_filtered_data(model, request):
 def get_active_properties_with_prefetch():
     statuses = Status.objects.filter(is_active=True)
     prefetch_statuses = Prefetch('statuses', queryset=statuses)
-    return Property.objects.filter(is_active=True).filter(category__is_active=True).filter(purpose__is_active=True).filter(region__is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related(prefetch_statuses).prefetch_related('region').prefetch_related('purpose')
+    features = Feature.objects.filter(is_active=True)
+    prefetch_features = Prefetch('features', queryset=features)
+    return Property.objects.filter(is_active=True).filter(category__is_active=True).filter(purpose__is_active=True).filter(region__is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related(prefetch_statuses).prefetch_related('region').prefetch_related('purpose').prefetch_related('features')

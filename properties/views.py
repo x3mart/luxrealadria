@@ -7,7 +7,7 @@ from django.db.models.aggregates import Avg, Min, Max
 from django.db.models import Count
 from django.db.models import Q
 from rest_framework.decorators import api_view
-from utils.filters import get_active_and_has_properties, get_filtered_data
+from utils.filters import get_active_and_has_properties, get_filtered_data, get_active_properties_with_prefetch
 from properties.filters import PropertyFilter
 from properties.paginations import PropertyPagination
 from properties.serializers import CategorySerializer, DataForFilterSerializer, PropertySerializer, PurposeSerializer, RegionSerializer, StatusSerializer
@@ -80,7 +80,7 @@ class RegionViewSet(viewsets.ReadOnlyModelViewSet):
 class PropertyViewSet(viewsets.ReadOnlyModelViewSet):
     statuses = Status.objects.filter(is_active=True)
     prefetch_statuses = Prefetch('statuses', queryset=statuses)
-    queryset = Property.objects.filter(is_active=True).filter(category__is_active=True).filter(purpose__is_active=True).filter(region__is_active=True).prefetch_related('property_gallary').prefetch_related('category').prefetch_related(prefetch_statuses).prefetch_related('region').prefetch_related('purpose')
+    queryset = get_active_properties_with_prefetch()
     serializer_class = PropertySerializer
     permission_classes = [AllowAny]
     filter_backend = [DjangoFilterBackend]
