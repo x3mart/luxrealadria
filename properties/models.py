@@ -93,7 +93,7 @@ class Property(models.Model):
     created_at = models.DateField(_('Дата добавления'), default=timezone.now)
     description = RichTextUploadingField(_('Описание'))
     wallpaper = models.ImageField(_('Главное фото'), max_length=255, upload_to=property_wallpaper_path)
-    video  = models.URLField(_('Видео'), max_length=255, null=True, blank=True)
+    video  = models.CharField(_('Видео'), max_length=255, null=True, blank=True)
     rooms = models.PositiveIntegerField(_('Спальни'), default=1)
     closets = models.PositiveIntegerField(_('Туалеты'), default=1)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Категория'))
