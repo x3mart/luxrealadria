@@ -37,11 +37,16 @@ class SiteLogo(models.Model):
 
 
 class Contact(models.Model):
-    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='contacts',)
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='contacts', blank=True, null=True)
+    phone_basic = models.CharField(_('Основной телефон'), max_length=25,)
+    phone_additional = models.CharField(_('Основной телефон'), max_length=25, blank=True, null=True)
+    email = models.EmailField(_('Электронная почта'),  blank=True, null=True)
+    address_basic = models.TextField(_('Основной адрес'), blank=True, null=True)
+    address_additional = models.TextField(_('Дополнительный адрес'), blank=True, null=True)
 
     class Meta:
-        verbose_name = _('Контакты Изображение')
-        verbose_name_plural = _('Контакты Изображение')
+        verbose_name = _('Основные Контакты')
+        verbose_name_plural = _('Основные Контакты')
 
     def __str__(self):
         return 'контакты' 
