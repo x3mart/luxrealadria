@@ -4,7 +4,7 @@ from django.template.defaultfilters import slugify
 from unidecode import unidecode
 import os
 from django.utils import timezone
-from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 from utils.images import get_tmb_path
 from django.template.defaultfilters import truncatechars_html
 
@@ -92,7 +92,7 @@ class Property(models.Model):
     price = models.PositiveIntegerField(_('Цена'), default=0)
     unique_id = models.CharField(_('Артикул'), max_length=255, null=True, blank=True )
     created_at = models.DateField(_('Дата добавления'), default=timezone.now)
-    description = RichTextUploadingField(_('Описание'))
+    description = RichTextField(_('Описание'))
     wallpaper = models.ImageField(_('Главное фото'), max_length=255, upload_to=property_wallpaper_path)
     video  = models.CharField(_('Видео'), max_length=255, null=True, blank=True)
     rooms = models.PositiveIntegerField(_('Спальни'), default=1)

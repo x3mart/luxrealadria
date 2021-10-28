@@ -19,16 +19,6 @@ class FAQSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class HomePageSerializer(serializers.Serializer):
-    title = serializers.CharField(read_only=True, )
-    subtitle = serializers.CharField(read_only=True, )
-    wallpaper = serializers.ImageField(read_only=True, )
-    categories = CategorySerializer(read_only=True, many=True)
-    faq = FAQSerializer(read_only=True, many=False)
-    trends = PropertySerializer(read_only=True, many=True)
-    recently_added = PropertySerializer(read_only=True, many=True)
-
-
 class LegaInfoItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = LegalInfoItem
@@ -47,3 +37,14 @@ class ContactItemSerializer(serializers.ModelSerializer):
 class ContactPageSerializer(serializers.Serializer):
     wallpaper = serializers.ImageField(read_only=True, )
     contact_items = ContactItemSerializer(read_only=True, many=True)
+
+
+class HomePageSerializer(serializers.Serializer):
+    title = serializers.CharField(read_only=True, )
+    subtitle = serializers.CharField(read_only=True, )
+    wallpaper = serializers.ImageField(read_only=True, )
+    categories = CategorySerializer(read_only=True, many=True)
+    faq = FAQSerializer(read_only=True, many=False)
+    trends = PropertySerializer(read_only=True, many=True)
+    recently_added = PropertySerializer(read_only=True, many=True)
+    contacts = ContactItemSerializer(read_only=True, many=True)
