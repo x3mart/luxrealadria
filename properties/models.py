@@ -6,6 +6,7 @@ import os
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
 from utils.images import get_tmb_path
+from django.template.defaultfilters import truncatechars_html
 
 
 # Create your models here.
@@ -96,6 +97,7 @@ class Property(models.Model):
     video  = models.CharField(_('Видео'), max_length=255, null=True, blank=True)
     rooms = models.PositiveIntegerField(_('Спальни'), default=1)
     closets = models.PositiveIntegerField(_('Туалеты'), default=1)
+    area = models.PositiveIntegerField(_('Площадь'), null=True, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Категория'))
     purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Назначение'))
     region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))
@@ -117,5 +119,11 @@ class Property(models.Model):
         if self.wallpaper:
             tmb_path = get_tmb_path(self.wallpaper.url)
             return tmb_path
+        return None
+    
+    @property
+    def short_description(self):
+        if self.description:
+            return truncatechars_html(self.description, 80)
         return None
 

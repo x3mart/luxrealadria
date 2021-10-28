@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.utils.text import Truncator
+from django.template.defaultfilters import truncatechars_html
 from .models import FAQItem, LegalInfoItem
 
 # Register your models here.
@@ -12,7 +12,7 @@ class FaqItemAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
     def get_question(self, obj):
-        return Truncator(obj.question).chars(25)
+        return truncatechars_html(obj.question, 35)
     
     get_question.short_description = 'Вопрос'
 
