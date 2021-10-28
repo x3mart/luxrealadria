@@ -99,6 +99,7 @@ class Property(models.Model):
     rooms = models.PositiveIntegerField(_('Спальни'), default=1)
     closets = models.PositiveIntegerField(_('Туалеты'), default=1)
     area = models.PositiveIntegerField(_('Площадь'), null=True, blank=True)
+    address = models.TextField(_('Адрес'), null=True, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Категория'))
     purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Назначение'))
     region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))

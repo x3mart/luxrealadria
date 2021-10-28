@@ -2,7 +2,6 @@ from django.db.models import fields
 from rest_framework import serializers
 from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
-
 from properties.serializers import CategorySerializer, PropertySerializer
 from siteelements.models import FAQ, Contact
 
@@ -48,6 +47,11 @@ class ContactPageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
         exclude = ('id',)
+
+
+class UsefullArticlePageSerializer(serializers.Serializer):
+    wallpaper = serializers.ImageField(read_only=True, )
+    contact = ContactPageSerializer(read_only=True, many=False)
 
 
 class HomePageSerializer(serializers.Serializer):

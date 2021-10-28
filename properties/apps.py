@@ -8,6 +8,5 @@ class PropertiesConfig(AppConfig):
     name = 'properties'
     verbose_name = _("Недвижимость")
 
-
     def ready(self):
         import properties.signals

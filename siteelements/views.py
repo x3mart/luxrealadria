@@ -4,8 +4,8 @@ from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.models import Category, Property, Status
 from properties.views import SomeData
-from siteelements.models import FAQ, Contact, Homepage, LegalInfo
-from siteelements.serializers import ContactPageSerializer, HomePageSerializer, LegalIfoPageSerializer
+from siteelements.models import FAQ, Contact, Homepage, LegalInfo, UsefullArticle
+from siteelements.serializers import ContactPageSerializer, HomePageSerializer, LegalIfoPageSerializer, UsefullArticlePageSerializer
 from django.db.models import Prefetch
 from utils.filters import get_active_properties_with_prefetch, get_active_and_has_properties
 
@@ -42,6 +42,12 @@ def get_legal_info_page(request):
     try:
         legal_info = LegalInfo.objects.first()
         legal_info.legal_info_items = LegalInfoItem.objects.filter(is_active=True)
+        try:
+            legal_info.contact = Contact.objects.first()
+            legal_info.contact.socials = Social.objects.filter(is_active=True)
+            legal_info.contact.messengers = Messenger.objects.filter(is_active=True)
+        except:
+            legal_info.contact = None
         return Response(LegalIfoPageSerializer(legal_info, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по Юридическому разделу, Admin должен создать раздел через панель администратора')
@@ -55,3 +61,18 @@ def get_contacts_page(request):
         return Response(ContactPageSerializer(contact, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по разделу Контакты, Admin должен создать раздел через панель администратора')
+
+
+@api_view(['GET',])
+def get_usefull_articles_page(request):
+    try:
+        useful_article = UsefullArticle.objects.first()
+        try:
+            useful_article.contact = Contact.objects.first()
+            useful_article.contact.socials = Social.objects.filter(is_active=True)
+            useful_article.contact.messengers = Messenger.objects.filter(is_active=True)
+        except:
+            useful_article.contact = None
+        return Response(UsefullArticlePageSerializer(useful_article, context={'request': request}).data)
+    except:
+        return Response('Нет необходимой информации по Юридическому разделу, Admin должен создать раздел через панель администратора')
