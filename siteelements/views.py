@@ -12,22 +12,22 @@ from utils.filters import get_active_properties_with_prefetch, get_active_and_ha
 # Create your views here.
 @api_view(['GET',])
 def get_home_page(request):
-    try:
-        home_page = Homepage.objects.first()
-        home = SomeData()
-        home.title = home_page.title
-        home.subtitle = home_page.subtitle
-        home.wallpaper = home_page.wallpaper
-        home.categories = get_active_and_has_properties(Category)
-        faq_items = FAQItem.objects.filter(is_active=True)
-        prefetch_faq_items = Prefetch('faq_items', queryset=faq_items)
-        properties = get_active_properties_with_prefetch()
-        home.trends = properties.filter(is_trend=True)[:5]
-        home.recently_added = properties.order_by('-created_at')[:5]
-        home.faq = FAQ.objects.prefetch_related(prefetch_faq_items).first()
-        return Response(HomePageSerializer(home, context={'request': request}).data)
-    except:
-        return Response('Нет необходимой информации по Домашней сранице, Admin должен создать раздел через панель администратора')
+    # try:
+    home_page = Homepage.objects.first()
+    home = SomeData()
+    home.title = home_page.title
+    home.subtitle = home_page.subtitle
+    home.wallpaper = home_page.wallpaper
+    home.categories = get_active_and_has_properties(Category)
+    faq_items = FAQItem.objects.filter(is_active=True)
+    prefetch_faq_items = Prefetch('faq_items', queryset=faq_items)
+    properties = get_active_properties_with_prefetch()
+    home.trends = properties.filter(is_trend=True)[:5]
+    home.recently_added = properties.order_by('-created_at')[:5]
+    home.faq = FAQ.objects.prefetch_related(prefetch_faq_items).first()
+    return Response(HomePageSerializer(home, context={'request': request}).data)
+    # except:
+    #     return Response('Нет необходимой информации по Домашней сранице, Admin должен создать раздел через панель администратора')
 
 @api_view(['GET',])
 def get_legal_info_page(request):

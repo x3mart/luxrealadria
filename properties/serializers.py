@@ -66,7 +66,7 @@ class PropertySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_tmb_wallpaper(self, obj):
-            if obj.image:
+            if obj.wallpaper:
                 request = self.context.get('request')
                 return request.build_absolute_uri(obj.tmb_wallpaper) 
             return None
