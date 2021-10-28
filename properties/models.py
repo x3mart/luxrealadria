@@ -6,7 +6,8 @@ import os
 from django.utils import timezone
 from ckeditor.fields import RichTextField
 from utils.images import get_tmb_path
-from django.template.defaultfilters import truncatechars_html
+from django.template.defaultfilters import truncatechars
+from django.utils.html import strip_tags
 
 
 # Create your models here.
@@ -124,6 +125,6 @@ class Property(models.Model):
     @property
     def short_description(self):
         if self.description:
-            return truncatechars_html(self.description, 80)
+            return truncatechars(strip_tags(self.description).replace("\r\n", " "), 80)
         return None
 
