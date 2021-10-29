@@ -63,6 +63,41 @@ class UsefullArticle(models.Model):
     def __str__(self):
         return 'контакты'
 
+
+class PropertyPage(models.Model):
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='article',)
+
+    class Meta:
+        verbose_name = _('Недвижимость Изображение')
+        verbose_name_plural = _('Недвижимость Изображение')
+
+    def __str__(self):
+        return 'недвижимость'
+
+
+
+class LoginPage(models.Model):
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='article',)
+
+    class Meta:
+        verbose_name = _('Вход Изображение')
+        verbose_name_plural = _('Вход Изображение')
+
+    def __str__(self):
+        return 'вход пользователя'
+
+
+class RegisterPage(models.Model):
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='article',)
+
+    class Meta:
+        verbose_name = _('Регистрация Изображение')
+        verbose_name_plural = _('Регистрация Изображение')
+
+    def __str__(self):
+        return 'Регистрация пользователя'
+
+
 class Homepage(models.Model):
     title = models.CharField(_('Заголовок'), max_length=255,)
     subtitle = models.CharField(_('Подзаголовок'), max_length=255,)

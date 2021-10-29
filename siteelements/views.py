@@ -4,8 +4,8 @@ from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.models import Category, Property, Status
 from properties.views import SomeData
-from siteelements.models import FAQ, Contact, Homepage, LegalInfo, UsefullArticle
-from siteelements.serializers import ContactPageSerializer, HomePageSerializer, LegalIfoPageSerializer, UsefullArticlePageSerializer
+from siteelements.models import FAQ, Contact, Homepage, LegalInfo, LoginPage, PropertyPage, RegisterPage, UsefullArticle
+from siteelements.serializers import ContactPageSerializer, HomePageSerializer, LegalIfoPageSerializer, LoginPageSerializer, PropertyPageSerializer, RegisterPageSerializer, UsefullArticlePageSerializer
 from django.db.models import Prefetch
 from utils.filters import get_active_properties_with_prefetch, get_active_and_has_properties
 
@@ -77,3 +77,29 @@ def get_usefull_articles_page(request):
         return Response(UsefullArticlePageSerializer(useful_article, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по Юридическому разделу, Admin должен создать раздел через панель администратора')
+
+
+@api_view(['GET',])
+def get_properties_page(request):
+    try:
+        useful_article = PropertyPage.objects.first()
+        return Response(PropertyPageSerializer(useful_article, context={'request': request}).data)
+    except:
+        return Response('Нет необходимой информации по странице Недвижимости, Admin должен создать раздел через панель администратора')
+
+@api_view(['GET',])
+def get_login_page(request):
+    try:
+        useful_article = LoginPage.objects.first()
+        return Response(LoginPageSerializer(useful_article, context={'request': request}).data)
+    except:
+        return Response('Нет необходимой информации по странице Входа, Admin должен создать раздел через панель администратора')
+
+
+@api_view(['GET',])
+def get_register_page(request):
+    try:
+        useful_article = RegisterPage.objects.first()
+        return Response(RegisterPageSerializer(useful_article, context={'request': request}).data)
+    except:
+        return Response('Нет необходимой информации по странице Регистрации, Admin должен создать раздел через панель администратора')

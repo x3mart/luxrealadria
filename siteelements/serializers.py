@@ -53,6 +53,17 @@ class UsefullArticlePageSerializer(serializers.Serializer):
     wallpaper = serializers.ImageField(read_only=True, )
     contact = ContactPageSerializer(read_only=True, many=False)
 
+class PropertyPageSerializer(serializers.Serializer):
+    wallpaper = serializers.ImageField(read_only=True, )
+
+
+class LoginPageSerializer(serializers.Serializer):
+    wallpaper = serializers.ImageField(read_only=True, )
+
+
+class RegisterPageSerializer(serializers.Serializer):
+    wallpaper = serializers.ImageField(read_only=True, )
+
 
 class HomePageSerializer(serializers.Serializer):
     title = serializers.CharField(read_only=True, )
