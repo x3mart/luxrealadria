@@ -16,6 +16,7 @@ def get_home_page(request):
     home_page = Homepage.objects.first()
     home = SomeData()
     home.title = home_page.title
+    home.footer_text = home_page.footer_text
     home.subtitle = home_page.subtitle
     home.wallpaper = home_page.wallpaper
     home.categories = get_active_and_has_properties(Category)

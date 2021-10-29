@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class LegalInfo(models.Model):
@@ -66,6 +67,7 @@ class Homepage(models.Model):
     title = models.CharField(_('Заголовок'), max_length=255,)
     subtitle = models.CharField(_('Подзаголовок'), max_length=255,)
     wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='walpaper',)
+    footer_text = RichTextField(_('Текст футера'), null=True, blank=True)
 
     class Meta:
         verbose_name = _('Домашняя страница')

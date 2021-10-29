@@ -57,6 +57,7 @@ class UsefullArticlePageSerializer(serializers.Serializer):
 class HomePageSerializer(serializers.Serializer):
     title = serializers.CharField(read_only=True, )
     subtitle = serializers.CharField(read_only=True, )
+    footer_text = serializers.CharField(read_only=True, )
     wallpaper = serializers.ImageField(read_only=True, )
     categories = CategorySerializer(read_only=True, many=True)
     faq = FAQSerializer(read_only=True, many=False)
