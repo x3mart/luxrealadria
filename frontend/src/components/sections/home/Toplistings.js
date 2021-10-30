@@ -75,7 +75,7 @@ class Toplistings extends Component {
             {...settings}
           >
             {/* Top Item Start */}
-            {home_page && home_page.trends.map((item, i) => (
+            {home_page && home_page.trends && home_page.trends.map((item, i) => (
               <div key={i}>
                 <div
                   className='acr-top-listing-item bg-cover dark-overlay bg-center'
