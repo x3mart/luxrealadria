@@ -9,7 +9,6 @@ import store from './store'
 import PrivateRoute from './components/layouts/PrivateRoute'
 
 import MainLayout from './components/layouts/MainLayout'
-import SecondaryLayout from './components/layouts/SecondaryLayout'
 
 // Preloader
 const Preloader = React.lazy(() => import('./components/layouts/Preloader'))
@@ -52,14 +51,6 @@ const App = () => {
           <Preloader />
           <Switch>
             <Route exact path='/coming-soon' component={Comingsoon} />
-            <Route path={['/login', '/register']}>
-              <SecondaryLayout>
-                <Switch>
-                  <Route path='/login' component={Login} />
-                  <Route path='/register' component={Register} />
-                </Switch>
-              </SecondaryLayout>
-            </Route>
             <Route
               path={[
                 '/articles',
@@ -71,6 +62,8 @@ const App = () => {
                 '/agent-list',
                 '/legal',
                 '/contacts',
+                '/login',
+                '/register',
                 '/',
               ]}
             >
@@ -90,6 +83,8 @@ const App = () => {
                   <PrivateRoute path='/agent-list' component={Agentarchive} />
                   <Route path='/legal' component={Legal} />
                   <Route path='/contacts' component={Contacts} />
+                  <Route path='/login' component={Login} />
+                  <Route path='/register' component={Register} />
                   <Route component={Error} />
                 </Switch>
               </MainLayout>
