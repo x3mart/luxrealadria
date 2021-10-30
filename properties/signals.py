@@ -22,7 +22,7 @@ def user_post_init(instance, **kwargs):
 
 @receiver(post_save, sender=Property)
 def user_post_save(instance, **kwargs):
-    image_processing(instance.wallpaper, instance._current_wallpaper, 1920, 780, 160, 100)
+    image_processing(instance.wallpaper, instance._current_wallpaper, 1920, 780, 350, 235)
     if not instance.unique_id:
         instance.unique_id = f'adria-{instance.id}'
         instance.save()
