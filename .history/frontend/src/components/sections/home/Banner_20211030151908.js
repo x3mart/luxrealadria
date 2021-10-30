@@ -13,7 +13,7 @@ const Banner = ({ filters, home_page, update_filters }) => {
   const [homeStatuses, setHomeStatuses] = useState([])
   const [homePurposes, setHomePurposes] = useState([])
 
-  const [priceValue, setPriceValue] = useState(0)
+  const [priceValue, setPriceValue] = useState(null)
 
   useEffect(() => {
     if (home_page) {
