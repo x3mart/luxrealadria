@@ -1,12 +1,26 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { OverlayTrigger, Tooltip, Dropdown, NavLink } from 'react-bootstrap'
-import Slider from 'react-slick'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { OverlayTrigger, Tooltip, Dropdown, NavLink } from 'react-bootstrap';
+import Slider from 'react-slick';
 import { connect } from 'react-redux'
 
-const bedstip = <Tooltip>Спальни</Tooltip>
-const bathstip = <Tooltip>Санузлы</Tooltip>
-const areatip = <Tooltip>Кв. метров</Tooltip>
+
+
+const bedstip = (
+    <Tooltip>
+        Спальни
+    </Tooltip>
+);
+const bathstip = (
+    <Tooltip>
+        Санузлы
+    </Tooltip>
+);
+const areatip = (
+    <Tooltip>
+        Кв. метров
+    </Tooltip>
+);
 
 class Toplistings extends Component {
   constructor(props) {
@@ -20,7 +34,7 @@ class Toplistings extends Component {
   previous() {
     this.slider.slickPrev()
   }
-
+  
   render() {
     const { home_page } = this.props
     const settings = {
