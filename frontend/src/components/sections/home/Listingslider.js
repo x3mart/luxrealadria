@@ -70,7 +70,7 @@ class Listingslider extends Component {
                 {...settings}
               >
                 {/* Listing Start */}
-                {home_page.recently_added.map((item, i) => (
+                {home_page && home_page.recently_added.map((item, i) => (
                   <div key={i} className='col-12'>
                     <div className='listing'>
                       <div className='listing-thumbnail'>
