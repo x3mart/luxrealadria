@@ -1,15 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from 'react'
 
-import Mobilemenu from '../layouts/Mobilemenu';
-import HeaderComponent from '../../helper/Navigationhelper';
+import Mobilemenu from '../layouts/Mobilemenu'
+import HeaderComponent from '../../helper/Navigationhelper'
 
-import classNames from 'classnames';
-import Topheader from './TopHeader';
-import LowHeader from './LowHeader';
+import classNames from 'classnames'
+import Topheader from './TopHeader'
+import LowHeader from './LowHeader'
 import { auth } from '../../firebase/firebase.utils'
 import { connect } from 'react-redux'
-
-
 
 class Header extends HeaderComponent {
   constructor(props) {
@@ -26,7 +24,7 @@ class Header extends HeaderComponent {
   }
 
   render() {
-    const {home_page} = this.props
+    const { home_page } = this.props
     const stickyheader = this.state.isTop ? 'sticky' : ''
     const { currentUser, contacts } = this.state
     return (
