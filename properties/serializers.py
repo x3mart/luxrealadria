@@ -39,6 +39,8 @@ class FeatureSerializer(serializers.ModelSerializer):
 
 
 class DataForFilterSerializer(serializers.Serializer):
+    max_price = serializers.IntegerField(read_only=True, source='price_range.max_price')
+    min_price = serializers.IntegerField(read_only=True, source='price_range.min_price')
     categories = CategorySerializer(read_only=True, many=True)
     regions = RegionSerializer(read_only=True, many=True)
     statuses = StatusSerializer(read_only=True, many=True)

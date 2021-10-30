@@ -36,6 +36,8 @@ def get_data_for_filter(request):
     filter_data.statuses = get_active_and_has_properties(Status)
     filter_data.regions = get_active_and_has_properties(Region)
     filter_data.purposes = get_active_and_has_properties(Purpose)
+    filter_data.price_range = get_filtered_data(Property, request).aggregate(max_price=Max('price'), min_price=Min('price'))
+    print(filter_data.price_range)
     return Response(DataForFilterSerializer(filter_data).data)
 
 
