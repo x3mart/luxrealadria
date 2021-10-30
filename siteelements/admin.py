@@ -3,12 +3,19 @@ from django.contrib import admin
 from siteelements.models import FAQ, Homepage, LegalInfo, LoginPage, PropertyPage, RegisterPage, SiteLogo, Contact, UsefullArticle
 
 # Register your models here.
-admin.site.register(LegalInfo)
+class NoAddDeleteAdmin(admin.ModelAdmin):
+    def has_delete_permission(self, request, obj=None):
+        return False
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+admin.site.register(LegalInfo, NoAddDeleteAdmin)
 admin.site.register(SiteLogo)
-admin.site.register(FAQ)
-admin.site.register(Contact)
-admin.site.register(Homepage)
-admin.site.register(UsefullArticle)
-admin.site.register(PropertyPage)
-admin.site.register(LoginPage)
-admin.site.register(RegisterPage)
+admin.site.register(FAQ, NoAddDeleteAdmin)
+admin.site.register(Contact, NoAddDeleteAdmin)
+admin.site.register(Homepage, NoAddDeleteAdmin)
+admin.site.register(UsefullArticle, NoAddDeleteAdmin)
+admin.site.register(PropertyPage, NoAddDeleteAdmin)
+admin.site.register(LoginPage, NoAddDeleteAdmin)
+admin.site.register(RegisterPage, NoAddDeleteAdmin)
