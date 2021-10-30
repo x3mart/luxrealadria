@@ -3,14 +3,12 @@ import { Tab, Nav } from 'react-bootstrap'
 import { useDropzone } from 'react-dropzone'
 import { connect } from 'react-redux'
 
-
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage'
-
 
 const features = [
   { id: 1, icon: 'bone', title: 'Можно с животными' },
@@ -45,7 +43,6 @@ function Content(props) {
 
   console.log(urls)
 
-
   const handleSubmit = e => {
     e.preventDefault()
     // props.add_listing(
@@ -68,7 +65,6 @@ function Content(props) {
     // )
   }
 
-
   // useEffect(() => {
   //   setTab2Enabled(
   //     propertyName && propertyDescription && propertyPrice && propertySpace
@@ -79,7 +75,6 @@ function Content(props) {
   //   setTab3Enabled(files.length > 0)
   //   setTab4Enabled(files.length > 0)
   // }, [files])
-
 
   const [propertyRentalPeriod, setPropertyRentalPeriod] = useState('')
   const [rentalPeriod, setRentalPeriod] = useState(false)
@@ -136,7 +131,8 @@ function Content(props) {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(downloadURL =>
-            setUrls(urls => [...urls, downloadURL]))
+            setUrls(urls => [...urls, downloadURL])
+          )
         }
       )
     })
@@ -146,7 +142,6 @@ function Content(props) {
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
       files.forEach(file => URL.revokeObjectURL(file.preview))
-      
     },
     [files]
   )

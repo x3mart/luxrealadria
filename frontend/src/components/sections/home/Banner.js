@@ -13,7 +13,7 @@ const Banner = ({ filters, home_page, update_filters }) => {
   const [homeStatuses, setHomeStatuses] = useState([])
   const [homePurposes, setHomePurposes] = useState([])
 
-  const [priceValue, setPriceValue] = useState(null)
+  const [priceValue, setPriceValue] = useState(0)
 
   useEffect(() => {
     if (home_page) {
@@ -135,9 +135,15 @@ const Banner = ({ filters, home_page, update_filters }) => {
                         title='price_range'
                         name='Диапазон цен'
                         type='range'
-                        class='form-range'
-                        min={filters.min_price}
-                        max={filters.max_price}
+                        className='form-range'
+                        min={
+                          1
+                          // rangeValue && rangeValue.lowest
+                        }
+                        max={
+                          2
+                          // rangeValue && rangeValue.highest
+                        }
                         step='10000'
                         id='customRange3'
                         value={priceValue}

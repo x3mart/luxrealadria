@@ -1,10 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import {
-  auth,
-  createUserProfileDocument,
-  db,
-} from '../firebase/firebase.utils'
-import { collection, getDocs, query } from 'firebase/firestore' 
+import { auth, createUserProfileDocument, db } from '../firebase/firebase.utils'
+import { collection, getDocs, query } from 'firebase/firestore'
 
 class HeaderComponent extends Component {
   constructor(props) {
@@ -23,7 +19,8 @@ class HeaderComponent extends Component {
   fetchContacts = async () => {
     const q = query(collection(db, 'Contacts'))
     const querySnapshot = await getDocs(q)
-    querySnapshot.forEach(doc => {this.setState({contacts: doc.data()})
+    querySnapshot.forEach(doc => {
+      this.setState({ contacts: doc.data() })
     })
   }
 

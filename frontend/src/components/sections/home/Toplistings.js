@@ -61,29 +61,24 @@ class Toplistings extends Component {
             {...settings}
           >
             {/* Top Item Start */}
-            {home_page &&
-              home_page.trends.map((item, i) => (
-                <div key={i}>
-                  <div
-                    className='acr-top-listing-item bg-cover dark-overlay bg-center'
-                    style={{
-                      backgroundImage: 'url(' + item.wallpaper + ')',
-                    }}
-                  >
-                    <div className='row'>
-                      <div className='col-lg-6'>
-                        <div className='acr-top-listing-body listing'>
-                          <div className='listing-body'>
-                            <h5 className='listing-title'>
-                              {' '}
-                              <Link
-                                to={`/listing/${item.id}`}
-                                title={item.name}
-                              >
-                                {item.name}
-                              </Link>{' '}
-                            </h5>
-
+            {home_page && home_page.trends && home_page.trends.map((item, i) => (
+              <div key={i}>
+                <div
+                  className='acr-top-listing-item bg-cover dark-overlay bg-center'
+                  style={{
+                    backgroundImage: 'url(' + item.wallpaper + ')',
+                  }}
+                >
+                  <div className='row'>
+                    <div className='col-lg-6'>
+                      <div className='acr-top-listing-body listing'>
+                        <div className='listing-body'>
+                          <h5 className='listing-title'>
+                            {' '}
+                            <Link to={`/listing/${item.id}`} title={item.name}>
+                              {item.name}
+                            </Link>{' '}
+                          </h5>
                             <span className='listing-price'>
                               {`€${item.price}`}
                               <span>

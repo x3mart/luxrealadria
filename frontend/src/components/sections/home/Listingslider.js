@@ -70,36 +70,39 @@ class Listingslider extends Component {
                 {...settings}
               >
                 {/* Listing Start */}
-                {home_page && home_page.recently_added.map((item, i) => (
-                  <div key={i} className='col-12'>
-                    <div className='listing'>
-                      <div className='listing-thumbnail'>
-                        <Link to={`/listing/${item.id}`}>
-                          <img
-                            src={item.tmb_wallpaper}
-                            alt={item.name}
-                            style={{ width: '100%', height: 'auto' }}
-                          />
-                        </Link>
-                        <div className='listing-badges'>
-                          {item.is_trend ? (
-                            <span className='listing-badge rent'>В тренде</span>
-                          ) : (
-                            ''
-                          )}
-                          {item.statuses &&
-                            item.statuses.map(status => (
-                              <span
-                                key={status.id}
-                                className='listing-badge'
-                                style={{ backgroundColor: status.color }}
-                              >
-                                {' '}
-                                {status.title}
+                {home_page && home_page.recently_added &&
+                  home_page.recently_added.map((item, i) => (
+                    <div key={i} className='col-12'>
+                      <div className='listing'>
+                        <div className='listing-thumbnail'>
+                          <Link to={`/listing/${item.id}`}>
+                            <img
+                              src={item.tmb_wallpaper}
+                              alt={item.name}
+                              style={{ width: '100%', height: 'auto' }}
+                            />
+                          </Link>
+                          <div className='listing-badges'>
+                            {item.is_trend ? (
+                              <span className='listing-badge rent'>
+                                В тренде
                               </span>
-                            ))}
-                        </div>
-                        {/* <div className='listing-controls'>
+                            ) : (
+                              ''
+                            )}
+                            {item.statuses &&
+                              item.statuses.map(status => (
+                                <span
+                                  key={status.id}
+                                  className='listing-badge'
+                                  style={{ backgroundColor: status.color }}
+                                >
+                                  {' '}
+                                  {status.title}
+                                </span>
+                              ))}
+                          </div>
+                          {/* <div className='listing-controls'>
                           <Link to='#' className='favorite'>
                             <i className='far fa-heart' />
                           </Link>
@@ -107,70 +110,70 @@ class Listingslider extends Component {
                             <i className='fas fa-sync-alt' />
                           </Link>
                         </div> */}
-                      </div>
-                      <div className='listing-body'>
-                        <h5 className='listing-title'>
-                          {' '}
-                          <Link to={`/listing/${item.id}`} title={item.name}>
-                            {item.name}
-                          </Link>{' '}
-                        </h5>
-                        <span className='listing-price'>
-                          {`€${item.price}`}
-                          <span>
-                            {item.purpose.title == 'Посуточная аренда'
-                              ? '/день'
-                              : item.purpose.title == 'Продажа'
-                              ? ''
-                              : '/месяц'}
-                          </span>{' '}
-                        </span>
-                        {item.short_description && (
-                          <div
-                            className='listing-text'
-                            dangerouslySetInnerHTML={{
-                              __html: item.short_description,
-                            }}
-                          />
-                        )}
-                        <div className='acr-listing-icons'>
-                          <OverlayTrigger overlay={bedstip}>
-                            <div className='acr-listing-icon'>
-                              <i className='flaticon-bedroom' />
-                              <span className='acr-listing-icon-value'>
-                                {item.rooms}
-                              </span>
-                            </div>
-                          </OverlayTrigger>
-                          <OverlayTrigger overlay={bathstip}>
-                            <div className='acr-listing-icon'>
-                              <i className='flaticon-bathroom' />
-                              <span className='acr-listing-icon-value'>
-                                {item.closets}
-                              </span>
-                            </div>
-                          </OverlayTrigger>
-                          <OverlayTrigger overlay={areatip}>
-                            <div className='acr-listing-icon'>
-                              <i className='flaticon-ruler' />
-                              <span className='acr-listing-icon-value'>
-                                {new Intl.NumberFormat().format(item.area)}
-                              </span>
-                            </div>
-                          </OverlayTrigger>
                         </div>
-                        <div className='listing-gallery-wrapper'>
-                          <Link
-                            to={`/listing/${item.id}`}
-                            className='btn-custom btn-sm secondary'
-                          >
-                            Подробнее
-                          </Link>
+                        <div className='listing-body'>
+                          <h5 className='listing-title'>
+                            {' '}
+                            <Link to={`/listing/${item.id}`} title={item.name}>
+                              {item.name}
+                            </Link>{' '}
+                          </h5>
+                          <span className='listing-price'>
+                            {`€${item.price}`}
+                            <span>
+                              {item.purpose.title == 'Посуточная аренда'
+                                ? '/день'
+                                : item.purpose.title == 'Продажа'
+                                ? ''
+                                : '/месяц'}
+                            </span>{' '}
+                          </span>
+                          {item.short_description && (
+                            <div
+                              className='listing-text'
+                              dangerouslySetInnerHTML={{
+                                __html: item.short_description,
+                              }}
+                            />
+                          )}
+                          <div className='acr-listing-icons'>
+                            <OverlayTrigger overlay={bedstip}>
+                              <div className='acr-listing-icon'>
+                                <i className='flaticon-bedroom' />
+                                <span className='acr-listing-icon-value'>
+                                  {item.rooms}
+                                </span>
+                              </div>
+                            </OverlayTrigger>
+                            <OverlayTrigger overlay={bathstip}>
+                              <div className='acr-listing-icon'>
+                                <i className='flaticon-bathroom' />
+                                <span className='acr-listing-icon-value'>
+                                  {item.closets}
+                                </span>
+                              </div>
+                            </OverlayTrigger>
+                            <OverlayTrigger overlay={areatip}>
+                              <div className='acr-listing-icon'>
+                                <i className='flaticon-ruler' />
+                                <span className='acr-listing-icon-value'>
+                                  {new Intl.NumberFormat().format(item.area)}
+                                </span>
+                              </div>
+                            </OverlayTrigger>
+                          </div>
+                          <div className='listing-gallery-wrapper'>
+                            <Link
+                              to={`/listing/${item.id}`}
+                              className='btn-custom btn-sm secondary'
+                            >
+                              Подробнее
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
                 {/* Listing End */}
               </Slider>
             </div>
