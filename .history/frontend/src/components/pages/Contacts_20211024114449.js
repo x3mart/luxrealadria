@@ -15,7 +15,6 @@ class Contacts extends Component {
         </MetaTags>
         <Breadcrumb breadcrumb={{ pagename: 'Контакты' }} />
         <Content />
-        <Footer />
       </Fragment>
     )
   }
