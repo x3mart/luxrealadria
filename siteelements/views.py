@@ -68,12 +68,6 @@ def get_contacts_page(request):
 def get_usefull_articles_page(request):
     try:
         useful_article = UsefullArticle.objects.first()
-        try:
-            useful_article.contact = Contact.objects.first()
-            useful_article.contact.socials = Social.objects.filter(is_active=True)
-            useful_article.contact.messengers = Messenger.objects.filter(is_active=True)
-        except:
-            useful_article.contact = None
         return Response(UsefullArticlePageSerializer(useful_article, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по Юридическому разделу, Admin должен создать раздел через панель администратора')

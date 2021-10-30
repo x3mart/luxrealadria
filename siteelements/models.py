@@ -61,7 +61,7 @@ class UsefullArticle(models.Model):
         verbose_name_plural = _('Полезные статьи Изображение')
 
     def __str__(self):
-        return 'контакты'
+        return 'полезные статьи'
 
 
 class PropertyPage(models.Model):

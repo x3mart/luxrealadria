@@ -51,7 +51,7 @@ class ContactPageSerializer(serializers.ModelSerializer):
 
 class UsefullArticlePageSerializer(serializers.Serializer):
     wallpaper = serializers.ImageField(read_only=True, )
-    contact = ContactPageSerializer(read_only=True, many=False)
+
 
 class PropertyPageSerializer(serializers.Serializer):
     wallpaper = serializers.ImageField(read_only=True, )
