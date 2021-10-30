@@ -35,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(_('Имя'), max_length=255,  null=True, blank=True,)
     second_name = models.CharField(_('Отчество'), max_length=255,  null=True, blank=True,)
-    logo = models.OneToOneField('images.Logo', on_delete=models.CASCADE, verbose_name=_('Логотип'), related_name='user',  null=True, blank=True,)
+    logo = models.ForeignKey('images.Logo', on_delete=models.PROTECT, verbose_name=_('Логотип'), related_name='user',  null=True, blank=True,)
     last_name = models.CharField(_('Фамилия'), max_length=255, null=True, blank=True,)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(_('Сотрудник'), default=False, )

@@ -1,9 +1,9 @@
 from django.db import models
-from django.db.models.deletion import CASCADE
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
 from unidecode import unidecode
 import os
+from utils.images import get_tmb_path
 # Create your models here.
 
 def logo_path(instance, filename):
@@ -12,11 +12,11 @@ def logo_path(instance, filename):
 
 def property_image_path(instance, filename):
     name, extension = os.path.splitext(filename)
-    return 'property/gallaries/{0}/{1}{2}'.format(slugify(unidecode(instance.property.name)), slugify(unidecode(name)), '.jpg')
+    return 'property/gallaries/{0}/{1}{2}'.format(slugify(unidecode(instance.image_property.name)), slugify(unidecode(name)), '.jpg')
 
 class Logo(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
-    sub_title = models.CharField(_('Подзаголовок'), max_length=255,  null=True, blank=True,)
+    subtitle = models.CharField(_('Подзаголовок'), max_length=255,  null=True, blank=True,)
     image = models.ImageField(_('Изображение'), max_length=255, upload_to=logo_path, null=True, blank=True,)
 
     class Meta:
@@ -30,9 +30,16 @@ class Logo(models.Model):
 
 class PropertyImage(models.Model):
     image = models.ImageField(_('Изображение'), max_length=255, upload_to=property_image_path)
-    property = models.ForeignKey('properties.Property', on_delete=models.CASCADE, related_name='property_gallary', verbose_name=_('Недвижимость'))
+    image_property = models.ForeignKey('properties.Property', on_delete=models.CASCADE, related_name='property_gallary', verbose_name=_('Недвижимость'), blank=True, null=True)
 
     class Meta:
         verbose_name = _('Изображение недвижимости')
         verbose_name_plural = _('Галерея недвижимости')
         ordering = ['-id']
+    
+    @property
+    def tmb_image(self):
+        if self.image:
+            tmb_path = get_tmb_path(self.image.url)
+            return tmb_path
+        return None

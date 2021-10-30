@@ -22,6 +22,12 @@ const Banner = ({ filters, home_page, update_filters }) => {
   }, [home_page])
 
   useEffect(() => {
+    if(filters && filters.max_price){
+      setPriceValue(filters.max_price)
+    }
+  }, [])
+
+  useEffect(() => {
     if (filters) {
       if (filters.regions) {
         setHomeRegions(filters.regions.map(item => item.title))
@@ -43,9 +49,9 @@ const Banner = ({ filters, home_page, update_filters }) => {
   const advancetoggle = () => {
     setAdvancesearch(!advancesearch)
   }
-  const handleRange = e => {
-    setPriceValue(e.target.value)
-  }
+  
+
+  console.log(priceValue)
 
   const handleFilterChange = e => {
     let value = e.target.value.slice(0, 4) !== 'Любо' ? e.target.value : ''
@@ -55,10 +61,9 @@ const Banner = ({ filters, home_page, update_filters }) => {
       value: value,
     }
     update_filters(obj)
-    // setValues({
-    //   ...values,
-    //   [e.target.title]: value,
-    // })
+    if(e.target.title === 'price_range') {
+      setPriceValue(e.target.value)
+    }
   }
 
 
@@ -122,16 +127,13 @@ const Banner = ({ filters, home_page, update_filters }) => {
                   <div className='col-lg-4 col-md-6'>
                     <div className='form-group acr-custom-select'>
                       <div className='d-flex justify-content-between'>
-                        <div>
-                          От €
-                          {
-                            // rangeValue && rangeValue.lowest
-                          }
-                        </div>
+                        <div>От €{filters.min_price}</div>
 
                         <div>До €{priceValue}</div>
                       </div>
                       <input
+                        title='price_range'
+                        name='Диапазон цен'
                         type='range'
                         className='form-range'
                         min={
@@ -145,7 +147,7 @@ const Banner = ({ filters, home_page, update_filters }) => {
                         step='10000'
                         id='customRange3'
                         value={priceValue}
-                        onChange={e => handleRange(e)}
+                        onChange={handleFilterChange}
                       ></input>
                     </div>
                   </div>

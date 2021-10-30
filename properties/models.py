@@ -3,8 +3,11 @@ from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
 from unidecode import unidecode
 import os
-from datetime import date, datetime
-from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils import timezone
+from ckeditor.fields import RichTextField
+from utils.images import get_tmb_path
+from django.template.defaultfilters import truncatechars
+from django.utils.html import strip_tags
 
 
 # Create your models here.
@@ -16,10 +19,15 @@ def property_wallpaper_path(instance, filename):
 
 class Category(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
+    image = models.ImageField(_('Изображение'), max_length=255, upload_to='categories', null=True, blank=True)
+    icon = models.CharField(_('Иконка'), max_length=25, null=True, blank=True)
+    order = models.PositiveIntegerField(_('Позиция'), default=1)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Категории')
         verbose_name_plural = _('Категория')
+        ordering = ['order', '-id']
 
 
     def __str__(self):
@@ -28,6 +36,7 @@ class Category(models.Model):
 
 class Purpose(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Назначение')
@@ -40,6 +49,7 @@ class Purpose(models.Model):
 
 class Region(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Регион')
@@ -53,6 +63,7 @@ class Region(models.Model):
 class Status(models.Model):
     title = models.CharField(_('Название'), max_length=255,)
     color = models.CharField(_('Цвет'), max_length=25,)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Статус')
@@ -60,21 +71,42 @@ class Status(models.Model):
 
 
     def __str__(self):
-        return self.title 
+        return self.title
+
+
+class Feature(models.Model):
+    title = models.CharField(_('Название'), max_length=255,)
+    icon = models.CharField(_('Иконка'), max_length=55,)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = _('Особенность')
+        verbose_name_plural = _('Особенности')
+
+
+    def __str__(self):
+        return self.title
 
 
 class Property(models.Model):
     name = models.CharField(_('Название'), max_length=255,)
-    unique_id = models.CharField(_('Артикул'), max_length=255, unique=True, default=f'adria-{datetime.now()}')
-    created_at = models.DateField(_('Дата добавления'), default=date.today())
-    description = RichTextUploadingField(_('Описание'))
+    price = models.PositiveIntegerField(_('Цена'), default=0)
+    unique_id = models.CharField(_('Артикул'), max_length=255, null=True, blank=True )
+    created_at = models.DateField(_('Дата добавления'), default=timezone.now)
+    description = RichTextField(_('Описание'))
     wallpaper = models.ImageField(_('Главное фото'), max_length=255, upload_to=property_wallpaper_path)
+    video  = models.CharField(_('Видео'), max_length=255, null=True, blank=True)
     rooms = models.PositiveIntegerField(_('Спальни'), default=1)
     closets = models.PositiveIntegerField(_('Туалеты'), default=1)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='property', verbose_name=_('Категория'))
-    purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='property', verbose_name=_('Назначение'))
-    region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='property', verbose_name=_('Регион'))
-    status = models.ForeignKey('Status', on_delete=models.CASCADE, related_name='property', verbose_name=_('Статус'))
+    area = models.PositiveIntegerField(_('Площадь'), null=True, blank=True)
+    address = models.TextField(_('Адрес'), null=True, blank=True)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Категория'))
+    purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Назначение'))
+    region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))
+    statuses = models.ManyToManyField('Status', related_name='properties', verbose_name=_('Статус'), blank=True)
+    features = models.ManyToManyField('Feature', related_name='properties', verbose_name=_('Особенности'), blank=True)
+    is_trend = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Недвижимость')
@@ -83,4 +115,17 @@ class Property(models.Model):
 
     def __str__(self):
         return self.name 
+    
+    @property
+    def tmb_wallpaper(self):
+        if self.wallpaper:
+            tmb_path = get_tmb_path(self.wallpaper.url)
+            return tmb_path
+        return None
+    
+    @property
+    def short_description(self):
+        if self.description:
+            return truncatechars(strip_tags(self.description).replace("\r\n", " "), 80)
+        return None
 

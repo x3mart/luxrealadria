@@ -24,6 +24,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf.urls.i18n import i18n_patterns
 import debug_toolbar
+from accounts.views import MyTokenObtainPairView
+from rest_framework_simplejwt.views import TokenRefreshView
 
 
 urlpatterns = [
@@ -31,7 +33,13 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('api-auth/', include('rest_framework.urls')),
     path('auth/', include('djoser.urls')),
+    path('auth/jwt/create/', MyTokenObtainPairView.as_view(), name='site_login'),
+    path('auth/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path to my app's endpoints
+    path("api/", include("properties.urls")),
+    path("api/", include("siteelements.urls")),
+    path("api/", include("articles.urls")),
 ]
 
 urlpatterns += i18n_patterns()
@@ -51,9 +59,9 @@ if settings.DEBUG:
         permission_classes=(permissions.AllowAny,),
     )
     urlpatterns += [
-        url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-        url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-        url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+        path('swagger(<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+        path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+        path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
         path('__debug__/', include(debug_toolbar.urls)),
     ]
 urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
