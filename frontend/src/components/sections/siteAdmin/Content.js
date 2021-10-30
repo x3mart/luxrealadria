@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Tab, Nav } from 'react-bootstrap'
 import { useDropzone } from 'react-dropzone'
 import { connect } from 'react-redux'
-import { add_listing } from '../../../redux/actions/listings'
-
 
 import {
   getStorage,
@@ -11,7 +9,6 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage'
-
 
 const features = [
   { id: 1, icon: 'bone', title: 'Можно с животными' },
@@ -41,31 +38,27 @@ function Content(props) {
   const [files, setFiles] = useState([])
   const [urls, setUrls] = useState([])
 
-
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(11)
-    props.add_listing(
-      propertyName,
-      propertyDescription,
-      propertyPurpose,
-      propertyStatus,
-      propertyType,
-      propertyPrice,
-      propertySpace,
-      propertyVideo,
-      propertyFeatures,
-      propertyId,
-      propertyBeds,
-      propertyBaths,
-      propertyCondition,
-      propertyBuiltYear,
-      propertyRegion,
-      urls
-    )
-    console.log(12)
+    // props.add_listing(
+    //   propertyName,
+    //   propertyDescription,
+    //   propertyPurpose,
+    //   propertyStatus,
+    //   propertyType,
+    //   propertyPrice,
+    //   propertySpace,
+    //   propertyVideo,
+    //   propertyFeatures,
+    //   propertyId,
+    //   propertyBeds,
+    //   propertyBaths,
+    //   propertyCondition,
+    //   propertyBuiltYear,
+    //   propertyRegion,
+    //   urls
+    // )
   }
-
 
   const [propertyRentalPeriod, setPropertyRentalPeriod] = useState('')
   const [rentalPeriod, setRentalPeriod] = useState(false)
@@ -133,7 +126,6 @@ function Content(props) {
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
       files.forEach(file => URL.revokeObjectURL(file.preview))
-      
     },
     [files]
   )
@@ -151,21 +143,17 @@ function Content(props) {
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey='tab2' >
+                  <Nav.Link eventKey='tab2'>
                     <span>02</span> Управление статьями
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link
-                    onClick={uploadImages}
-                    eventKey='tab3'
-                    
-                  >
+                  <Nav.Link onClick={uploadImages} eventKey='tab3'>
                     <span>03</span> Управление правовой информацией
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey='tab4' >
+                  <Nav.Link eventKey='tab4'>
                     <span>04</span> Управление контактами
                   </Nav.Link>
                 </Nav.Item>
@@ -493,4 +481,4 @@ const mapStateToProps = state => ({
   error: state.auth.error,
 })
 
-export default connect(mapStateToProps, { add_listing })(Content)
+export default connect(mapStateToProps)(Content)
