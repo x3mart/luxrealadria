@@ -1,26 +1,12 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { OverlayTrigger, Tooltip, Dropdown, NavLink } from 'react-bootstrap';
-import Slider from 'react-slick';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { OverlayTrigger, Tooltip, Dropdown, NavLink } from 'react-bootstrap'
+import Slider from 'react-slick'
 import { connect } from 'react-redux'
 
-
-
-const bedstip = (
-    <Tooltip>
-        Спальни
-    </Tooltip>
-);
-const bathstip = (
-    <Tooltip>
-        Санузлы
-    </Tooltip>
-);
-const areatip = (
-    <Tooltip>
-        Кв. метров
-    </Tooltip>
-);
+const bedstip = <Tooltip>Спальни</Tooltip>
+const bathstip = <Tooltip>Санузлы</Tooltip>
+const areatip = <Tooltip>Кв. метров</Tooltip>
 
 class Toplistings extends Component {
   constructor(props) {
@@ -34,7 +20,7 @@ class Toplistings extends Component {
   previous() {
     this.slider.slickPrev()
   }
-  
+
   render() {
     const { home_page } = this.props
     const settings = {
@@ -93,68 +79,69 @@ class Toplistings extends Component {
                               {item.name}
                             </Link>{' '}
                           </h5>
-
-                          <span className='listing-price'>
-                            {`€${item.price}`}
-                            <span>
-                              {item.purpose.title == 'Посуточная аренда'
-                                ? '/день'
-                                : item.purpose.title == 'Продажа'
-                                ? ''
-                                : '/месяц'}
-                            </span>{' '}
-                          </span>
-                          {item.short_description && (
-                            <div
-                              className='listing-text'
-                              dangerouslySetInnerHTML={{
-                                __html: item.short_description,
-                              }}
-                            />
-                          )}
-                          <div className='acr-listing-icons'>
-                            <OverlayTrigger overlay={bedstip}>
-                              <div className='acr-listing-icon'>
-                                <i className='flaticon-bedroom' />
-                                <span className='acr-listing-icon-value'>
-                                  {item.rooms}
-                                </span>
-                              </div>
-                            </OverlayTrigger>
-                            <OverlayTrigger overlay={bathstip}>
-                              <div className='acr-listing-icon'>
-                                <i className='flaticon-bathroom' />
-                                <span className='acr-listing-icon-value'>
-                                  {item.closets}
-                                </span>
-                              </div>
-                            </OverlayTrigger>
-                            {item.area && (
-                              <OverlayTrigger overlay={areatip}>
+                            <span className='listing-price'>
+                              {`€${item.price}`}
+                              <span>
+                                {item.purpose.title == 'Посуточная аренда'
+                                  ? '/день'
+                                  : item.purpose.title == 'Продажа'
+                                  ? ''
+                                  : '/месяц'}
+                              </span>{' '}
+                            </span>
+                            {item.short_description && (
+                              <div
+                                className='listing-text'
+                                dangerouslySetInnerHTML={{
+                                  __html: item.short_description,
+                                }}
+                              />
+                            )}
+                            <div className='acr-listing-icons'>
+                              <OverlayTrigger overlay={bedstip}>
                                 <div className='acr-listing-icon'>
-                                  <i className='flaticon-ruler' />
+                                  <i className='flaticon-bedroom' />
                                   <span className='acr-listing-icon-value'>
-                                    {new Intl.NumberFormat().format(item.area)}
+                                    {item.rooms}
                                   </span>
                                 </div>
                               </OverlayTrigger>
-                            )}
-                          </div>
-                          <div className='listing-gallery-wrapper'>
-                            <Link
-                              to={`/listing/${item.id}`}
-                              className='btn-custom btn-sm secondary'
-                            >
-                              Подробнее
-                            </Link>
+                              <OverlayTrigger overlay={bathstip}>
+                                <div className='acr-listing-icon'>
+                                  <i className='flaticon-bathroom' />
+                                  <span className='acr-listing-icon-value'>
+                                    {item.closets}
+                                  </span>
+                                </div>
+                              </OverlayTrigger>
+                              {item.area && (
+                                <OverlayTrigger overlay={areatip}>
+                                  <div className='acr-listing-icon'>
+                                    <i className='flaticon-ruler' />
+                                    <span className='acr-listing-icon-value'>
+                                      {new Intl.NumberFormat().format(
+                                        item.area
+                                      )}
+                                    </span>
+                                  </div>
+                                </OverlayTrigger>
+                              )}
+                            </div>
+                            <div className='listing-gallery-wrapper'>
+                              <Link
+                                to={`/listing/${item.id}`}
+                                className='btn-custom btn-sm secondary'
+                              >
+                                Подробнее
+                              </Link>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
             {/* Top Item End */}
           </Slider>
         </div>

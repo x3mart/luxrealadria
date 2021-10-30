@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class LegalInfo(models.Model):
-    image = models.ImageField(_('Изображение'), max_length=255, upload_to='legalinfo',)
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='legalinfo',)
 
     class Meta:
         verbose_name = _('Юр инфа Изображение')
@@ -14,7 +15,7 @@ class LegalInfo(models.Model):
 
 
 class FAQ(models.Model):
-    title = models.CharField(_('Название'), max_length=255,)
+    title = models.CharField(_('Заголовок'), max_length=255,)
     subtitle = models.CharField(_('Подзаголовок'), max_length=255,)
     
     class Meta:
@@ -37,11 +38,75 @@ class SiteLogo(models.Model):
 
 
 class Contact(models.Model):
-    image = models.ImageField(_('Изображение'), max_length=255, upload_to='contacts',)
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='contacts', blank=True, null=True)
+    phone_basic = models.CharField(_('Основной телефон'), max_length=25,)
+    phone_additional = models.CharField(_('Основной телефон'), max_length=25, blank=True, null=True)
+    email = models.EmailField(_('Электронная почта'),  blank=True, null=True)
+    address_basic = models.TextField(_('Основной адрес'), blank=True, null=True)
+    address_additional = models.TextField(_('Дополнительный адрес'), blank=True, null=True)
 
     class Meta:
-        verbose_name = _('Контакты Изображение')
-        verbose_name_plural = _('Контакты Изображение')
+        verbose_name = _('Основные Контакты')
+        verbose_name_plural = _('Основные Контакты')
 
     def __str__(self):
         return 'контакты' 
+
+
+class UsefullArticle(models.Model):
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='article',)
+
+    class Meta:
+        verbose_name = _('Полезные статьи Изображение')
+        verbose_name_plural = _('Полезные статьи Изображение')
+
+    def __str__(self):
+        return 'полезные статьи'
+
+
+class PropertyPage(models.Model):
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='article',)
+
+    class Meta:
+        verbose_name = _('Недвижимость Изображение')
+        verbose_name_plural = _('Недвижимость Изображение')
+
+    def __str__(self):
+        return 'недвижимость'
+
+
+
+class LoginPage(models.Model):
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='article',)
+
+    class Meta:
+        verbose_name = _('Вход Изображение')
+        verbose_name_plural = _('Вход Изображение')
+
+    def __str__(self):
+        return 'вход пользователя'
+
+
+class RegisterPage(models.Model):
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='article',)
+
+    class Meta:
+        verbose_name = _('Регистрация Изображение')
+        verbose_name_plural = _('Регистрация Изображение')
+
+    def __str__(self):
+        return 'Регистрация пользователя'
+
+
+class Homepage(models.Model):
+    title = models.CharField(_('Заголовок'), max_length=255,)
+    subtitle = models.CharField(_('Подзаголовок'), max_length=255,)
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='walpaper',)
+    footer_text = RichTextField(_('Текст футера'), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _('Домашняя страница')
+        verbose_name_plural = _('Домашняя страница')
+        
+    def __str__(self):
+        return 'Домашняя страница'
