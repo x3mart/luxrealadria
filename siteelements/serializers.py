@@ -56,8 +56,10 @@ class UsefullArticlePageSerializer(serializers.ModelSerializer):
         exclude = ('id',)
 
 
-class PropertyPageSerializer(serializers.Serializer):
-    wallpaper = serializers.ImageField(read_only=True, )
+class PropertyPageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UsefullArticle
+        exclude = ('id',)
 
 
 class LoginPageSerializer(serializers.Serializer):
