@@ -69,5 +69,3 @@ const filters = (state = initialState, action) => {
       return state
   }
 }
-
-export default filters
