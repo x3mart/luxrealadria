@@ -14,6 +14,6 @@ urlpatterns = [
             path('propertypage/', get_properties_page, name='propertypage'),
             path('loginpage/', get_login_page, name='loginpage'),
             path('registerpage/', get_register_page, name='registerpage'),
-            path('error404/', get_error404_page, name='error404'),
+            path('errorpage/', get_error404_page, name='error404'),
             ]
 # urlpatterns += router.urls

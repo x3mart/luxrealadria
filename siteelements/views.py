@@ -101,7 +101,7 @@ def get_register_page(request):
 @api_view(['GET',])
 def get_error404_page(request):
     try:
-        useful_article = Error404Page.objects.first()
-        return Response(Error404PageSerializer(useful_article, context={'request': request}).data)
+        error404 = Error404Page.objects.first()
+        return Response(Error404PageSerializer(error404, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по странице 404, Admin должен создать раздел через панель администратора')

@@ -3,7 +3,7 @@ from rest_framework import serializers
 from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.serializers import CategorySerializer, PropertySerializer
-from siteelements.models import FAQ, Contact
+from siteelements.models import FAQ, Contact, Error404Page
 
 
 class FAQItemSerializer(serializers.ModelSerializer):
@@ -66,7 +66,7 @@ class RegisterPageSerializer(serializers.Serializer):
 
 class Error404PageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Contact
+        model = Error404Page
         exclude = ('id',)
 
 
