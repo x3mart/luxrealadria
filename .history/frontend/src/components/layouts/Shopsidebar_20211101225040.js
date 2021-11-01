@@ -102,7 +102,7 @@ const Shopsidebar = ({
         <Collapse in={open}>
           <div className='acr-collapsable'>
             <div className='acr-filter-form'>
-              <form onSubmit={e => e.preventDefault()}>
+              <form onSubmit>
                 <div className='acr-custom-select form-group'>
                   <label>Регион: </label>
                   <Select2
