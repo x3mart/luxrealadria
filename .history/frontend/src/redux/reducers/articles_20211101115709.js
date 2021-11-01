@@ -43,5 +43,3 @@ const articles = (state = initialState, action) => {
       return state
   }
 }
-
-export default articles

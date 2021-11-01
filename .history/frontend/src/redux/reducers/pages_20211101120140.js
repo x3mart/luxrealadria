@@ -51,5 +51,3 @@ const pages = (state = initialState, action) => {
       return state
   }
 }
-
-export default pages

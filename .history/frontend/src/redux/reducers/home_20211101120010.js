@@ -13,7 +13,7 @@ const home = (state = initialState, action) => {
         ...state,
         home: payload,
       }
-    case GET_HOMEPAGE_FAIL:
+    case GET_HOMEPAGE_SUCCESS:
       return {
         ...state,
       }
