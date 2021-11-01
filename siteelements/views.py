@@ -43,12 +43,6 @@ def get_legal_info_page(request):
     try:
         legal_info = LegalInfo.objects.first()
         legal_info.legal_info_items = LegalInfoItem.objects.filter(is_active=True)
-        try:
-            legal_info.contact = Contact.objects.first()
-            legal_info.contact.socials = Social.objects.filter(is_active=True)
-            legal_info.contact.messengers = Messenger.objects.filter(is_active=True)
-        except:
-            legal_info.contact = None
         return Response(LegalIfoPageSerializer(legal_info, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по Юридическому разделу, Admin должен создать раздел через панель администратора')
@@ -76,16 +70,16 @@ def get_usefull_articles_page(request):
 @api_view(['GET',])
 def get_properties_page(request):
     try:
-        useful_article = PropertyPage.objects.first()
-        return Response(PropertyPageSerializer(useful_article, context={'request': request}).data)
+        properties_page = PropertyPage.objects.first()
+        return Response(PropertyPageSerializer(properties_page, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по странице Недвижимости, Admin должен создать раздел через панель администратора')
 
 @api_view(['GET',])
 def get_login_page(request):
     try:
-        useful_article = LoginPage.objects.first()
-        return Response(LoginPageSerializer(useful_article, context={'request': request}).data)
+        login_page = LoginPage.objects.first()
+        return Response(LoginPageSerializer(login_page, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по странице Входа, Admin должен создать раздел через панель администратора')
 
@@ -93,8 +87,8 @@ def get_login_page(request):
 @api_view(['GET',])
 def get_register_page(request):
     try:
-        useful_article = RegisterPage.objects.first()
-        return Response(RegisterPageSerializer(useful_article, context={'request': request}).data)
+        register_page = RegisterPage.objects.first()
+        return Response(RegisterPageSerializer(register_page, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по странице Регистрации, Admin должен создать раздел через панель администратора')
 
