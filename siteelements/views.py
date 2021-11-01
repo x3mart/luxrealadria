@@ -49,13 +49,13 @@ def get_legal_info_page(request):
 
 @api_view(['GET',])
 def get_contacts_page(request):
-    try:
-        contact = Contact.objects.first()
-        contact.socials = Social.objects.filter(is_active=True)
-        contact.messengers = Messenger.objects.filter(is_active=True)
-        return Response(ContactPageSerializer(contact, context={'request': request}).data)
-    except:
-        return Response('Нет необходимой информации по разделу Контакты, Admin должен создать раздел через панель администратора')
+    # try:
+    contact = Contact.objects.first()
+    contact.socials = Social.objects.filter(is_active=True)
+    contact.messengers = Messenger.objects.filter(is_active=True)
+    return Response(ContactPageSerializer(contact, context={'request': request}).data)
+    # except:
+    #     return Response('Нет необходимой информации по разделу Контакты, Admin должен создать раздел через панель администратора')
 
 
 @api_view(['GET',])
