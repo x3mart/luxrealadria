@@ -72,6 +72,9 @@ class UsefullArticle(models.Model):
 
 class PropertyPage(models.Model):
     wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='properties',)
+    title = models.CharField(_('Заголовок'), max_length=255, blank=True, null=True)
+    text = models.TextField(_('Текст'), blank=True, null=True)
+
 
     class Meta:
         verbose_name = _('Недвижимость')
