@@ -104,11 +104,11 @@ class Error404Page(models.Model):
     text = models.TextField(_('Текст'), blank=True, null=True)
 
     class Meta:
-        verbose_name = _('Регистрация Изображение')
-        verbose_name_plural = _('Регистрация Изображение')
+        verbose_name = _('404')
+        verbose_name_plural = _('404')
 
     def __str__(self):
-        return 'Регистрация пользователя'
+        return '404'
 
 
 class Homepage(models.Model):
