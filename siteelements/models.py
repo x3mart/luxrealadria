@@ -98,6 +98,19 @@ class RegisterPage(models.Model):
         return 'Регистрация пользователя'
 
 
+class Error404Page(models.Model):
+    title = models.CharField(_('Заголовок'), max_length=255,)
+    wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='errors',)
+    text = models.TextField(_('Текст'), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('Регистрация Изображение')
+        verbose_name_plural = _('Регистрация Изображение')
+
+    def __str__(self):
+        return 'Регистрация пользователя'
+
+
 class Homepage(models.Model):
     title = models.CharField(_('Заголовок'), max_length=255,)
     subtitle = models.CharField(_('Подзаголовок'), max_length=255,)

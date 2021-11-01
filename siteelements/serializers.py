@@ -64,6 +64,11 @@ class LoginPageSerializer(serializers.Serializer):
 class RegisterPageSerializer(serializers.Serializer):
     wallpaper = serializers.ImageField(read_only=True, )
 
+class Error404PageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        exclude = ('id',)
+
 
 class HomePageSerializer(serializers.Serializer):
     title = serializers.CharField(read_only=True, )

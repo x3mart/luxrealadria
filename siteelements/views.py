@@ -4,8 +4,8 @@ from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.models import Category, Property, Status
 from properties.views import SomeData
-from siteelements.models import FAQ, Contact, Homepage, LegalInfo, LoginPage, PropertyPage, RegisterPage, UsefullArticle
-from siteelements.serializers import ContactPageSerializer, HomePageSerializer, LegalIfoPageSerializer, LoginPageSerializer, PropertyPageSerializer, RegisterPageSerializer, UsefullArticlePageSerializer
+from siteelements.models import FAQ, Contact, Error404Page, Homepage, LegalInfo, LoginPage, PropertyPage, RegisterPage, UsefullArticle
+from siteelements.serializers import ContactPageSerializer, Error404PageSerializer, HomePageSerializer, LegalIfoPageSerializer, LoginPageSerializer, PropertyPageSerializer, RegisterPageSerializer, UsefullArticlePageSerializer
 from django.db.models import Prefetch
 from utils.filters import get_active_properties_with_prefetch, get_active_and_has_properties
 
@@ -97,3 +97,11 @@ def get_register_page(request):
         return Response(RegisterPageSerializer(useful_article, context={'request': request}).data)
     except:
         return Response('Нет необходимой информации по странице Регистрации, Admin должен создать раздел через панель администратора')
+
+@api_view(['GET',])
+def get_error404_page(request):
+    try:
+        useful_article = Error404Page.objects.first()
+        return Response(Error404PageSerializer(useful_article, context={'request': request}).data)
+    except:
+        return Response('Нет необходимой информации по странице 404, Admin должен создать раздел через панель администратора')

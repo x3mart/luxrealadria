@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from siteelements.models import FAQ, Homepage, LegalInfo, LoginPage, PropertyPage, RegisterPage, SiteLogo, Contact, UsefullArticle
+from siteelements.models import FAQ, Error404Page, Homepage, LegalInfo, LoginPage, PropertyPage, RegisterPage, SiteLogo, Contact, UsefullArticle
 
 # Register your models here.
 class NoAddDeleteAdmin(admin.ModelAdmin):
@@ -12,6 +12,7 @@ class NoAddDeleteAdmin(admin.ModelAdmin):
 
 admin.site.register(LegalInfo, NoAddDeleteAdmin)
 admin.site.register(SiteLogo)
+admin.site.register(Error404Page)
 admin.site.register(FAQ, NoAddDeleteAdmin)
 admin.site.register(Contact, NoAddDeleteAdmin)
 admin.site.register(Homepage, NoAddDeleteAdmin)
