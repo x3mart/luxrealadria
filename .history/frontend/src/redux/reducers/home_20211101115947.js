@@ -4,7 +4,7 @@ const initialState = {
   home: [],
 }
 
-const home = (state = initialState, action) => {
+cons home (state = initialState, action) {
   const { type, payload } = action
 
   switch (type) {
@@ -13,7 +13,7 @@ const home = (state = initialState, action) => {
         ...state,
         home: payload,
       }
-    case GET_HOMEPAGE_FAIL:
+    case GET_HOMEPAGE_SUCCESS:
       return {
         ...state,
       }
@@ -21,5 +21,3 @@ const home = (state = initialState, action) => {
       return state
   }
 }
-
-export default home

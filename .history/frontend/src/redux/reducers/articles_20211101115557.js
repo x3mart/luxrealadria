@@ -13,7 +13,7 @@ const initialState = {
   error: null,
 }
 
-const articles = (state = initialState, action) => {
+export default function article (state = initialState, action) {
   const { type, payload } = action
 
   switch (type) {
@@ -43,5 +43,3 @@ const articles = (state = initialState, action) => {
       return state
   }
 }
-
-export default articles

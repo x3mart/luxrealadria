@@ -46,7 +46,7 @@ const initialState = {
   error: null,
 }
 
-const filters = (state = initialState, action) => {
+export default filters (state = initialState, action) {
   const { type, payload } = action
 
   switch (type) {
@@ -69,5 +69,3 @@ const filters = (state = initialState, action) => {
       return state
   }
 }
-
-export default filters

@@ -16,7 +16,7 @@ const initialState = {
   legal_page: {},
 }
 
-const pages = (state = initialState, action) => {
+export default pages (state = initialState, action) {
   const { type, payload } = action
 
   switch (type) {
@@ -51,5 +51,3 @@ const pages = (state = initialState, action) => {
       return state
   }
 }
-
-export default pages
