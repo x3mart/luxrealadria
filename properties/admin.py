@@ -28,6 +28,7 @@ class PropertyAdmin(admin.ModelAdmin):
         PropertyImageInline,
     ]
 
+
     @admin.display(description='Регион')
     def region_colored(self, obj):
         if not obj.region.is_active:
