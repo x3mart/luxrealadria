@@ -12,7 +12,7 @@ class NoAddDeleteAdmin(admin.ModelAdmin):
 
 admin.site.register(LegalInfo, NoAddDeleteAdmin)
 admin.site.register(SiteLogo)
-admin.site.register(Error404Page)
+admin.site.register(Error404Page, NoAddDeleteAdmin)
 admin.site.register(FAQ, NoAddDeleteAdmin)
 admin.site.register(Contact, NoAddDeleteAdmin)
 admin.site.register(Homepage, NoAddDeleteAdmin)
