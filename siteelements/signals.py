@@ -1,6 +1,6 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_delete, post_init, post_save
-from .models import Contact, Homepage, LegalInfo, LoginPage, PropertyPage, RegisterPage, UsefullArticle
+from .models import Contact, Error404Page, Homepage, LegalInfo, LoginPage, PropertyPage, RegisterPage, UsefullArticle
 from utils.images import delete_image, image_processing
 from luxrealadria.settings import BASE_DIR
         
@@ -89,3 +89,14 @@ def user_post_save(instance, **kwargs):
 def user_post_delete(instance, **kwargs):
     delete_image(instance._current_wallpaper)
 
+@receiver(post_init, sender=Error404Page)
+def user_post_init(instance, **kwargs):
+    instance._current_wallpaper = instance.wallpaper
+
+@receiver(post_save, sender=Error404Page)
+def user_post_save(instance, **kwargs):
+    image_processing(instance.wallpaper, instance._current_wallpaper, 1920, 780)
+
+@receiver(post_delete, sender=Error404Page)
+def user_post_delete(instance, **kwargs):
+    delete_image(instance._current_wallpaper)
