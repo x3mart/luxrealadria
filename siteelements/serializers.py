@@ -3,7 +3,7 @@ from rest_framework import serializers
 from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.serializers import CategorySerializer, PropertySerializer
-from siteelements.models import FAQ, Contact, Error404Page
+from siteelements.models import FAQ, Contact, Error404Page, LegalInfo, UsefullArticle
 
 
 class FAQItemSerializer(serializers.ModelSerializer):
@@ -24,10 +24,11 @@ class LegaInfoItemSerializer(serializers.ModelSerializer):
         model = LegalInfoItem
         fields = '__all__'
 
-class LegalIfoPageSerializer(serializers.Serializer):
-    wallpaper = serializers.ImageField(read_only=True, )
+class LegalIfoPageSerializer(serializers.ModelSerializer):
     legal_info_items = LegaInfoItemSerializer(read_only=True, many=True)
-
+    class Meta:
+        model = LegalInfo
+        exclude = ('id',)
 
 class SocialSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,8 +50,10 @@ class ContactPageSerializer(serializers.ModelSerializer):
         exclude = ('id',)
 
 
-class UsefullArticlePageSerializer(serializers.Serializer):
-    wallpaper = serializers.ImageField(read_only=True, )
+class UsefullArticlePageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UsefullArticle
+        exclude = ('id',)
 
 
 class PropertyPageSerializer(serializers.Serializer):
