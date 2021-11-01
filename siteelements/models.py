@@ -5,6 +5,8 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 class LegalInfo(models.Model):
     wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='legalinfo',)
+    title = models.CharField(_('Заголовок'), max_length=255, blank=True, null=True)
+    text = models.TextField(_('Текст'), blank=True, null=True)
 
     class Meta:
         verbose_name = _('Юр инфа Изображение')
@@ -55,6 +57,8 @@ class Contact(models.Model):
 
 class UsefullArticle(models.Model):
     wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='article',)
+    title = models.CharField(_('Заголовок'), max_length=255, blank=True, null=True)
+    text = models.TextField(_('Текст'), blank=True, null=True)
 
     class Meta:
         verbose_name = _('Полезные статьи Изображение')
@@ -99,8 +103,8 @@ class RegisterPage(models.Model):
 
 
 class Error404Page(models.Model):
-    title = models.CharField(_('Заголовок'), max_length=255,)
     wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='errors',)
+    title = models.CharField(_('Заголовок'), max_length=255,)
     text = models.TextField(_('Текст'), blank=True, null=True)
 
     class Meta:

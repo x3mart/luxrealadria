@@ -105,6 +105,7 @@ class Property(models.Model):
     region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))
     statuses = models.ManyToManyField('Status', related_name='properties', verbose_name=_('Статус'), blank=True)
     features = models.ManyToManyField('Feature', related_name='properties', verbose_name=_('Особенности'), blank=True)
+    owner = models.ForeignKey('accounts.User', on_delete=models.PROTECT, null=True, blank=True, related_name='users_property')
     is_trend = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
