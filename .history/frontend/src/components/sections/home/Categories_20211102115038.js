@@ -41,18 +41,7 @@ const Categories = ({ home_page, update_filters }) => {
                     <div className='acr-category-body'>
                       <h5>
                         {' '}
-                        <Link
-                          to='/listing'
-                          onClick={() =>
-                            update_filters({
-                              title: 'category__title',
-                              name: 'Тип',
-                              value: item.title,
-                            })
-                          }
-                        >
-                          {item.title}
-                        </Link>{' '}
+                        <Link to='/listing' >{item.title}</Link>{' '}
                       </h5>
                       <span>{item.properties_count} Объектов</span>
                     </div>
