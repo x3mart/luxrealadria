@@ -40,14 +40,7 @@ const Topheader = ({ contacts }) => {
         <ul className='top-header-nav'>
           <li>
             {' '}
-            <a
-              href='http://luxrealadria.com/admin/'
-              target='_blank'
-              rel='noreferrer'
-            >
-              {' '}
-              Вход для агентов
-            </a>{' '}
+            <a href='http://luxrealadria.com/admin/' > Вход для агентов</a>{' '}
           </li>
         </ul>
       </div>
