@@ -11,12 +11,7 @@ const Topheader = ({ contacts }) => {
             contacts.socials.map(item => (
               <li key={item.id}>
                 {' '}
-                <a
-                  href={item.link}
-                  target='_blank'
-                  rel='noreferrer'
-                  className='h-100'
-                >
+                <a href={item.link} target='_blank' rel='noreferrer' className='h-100'>
                   {' '}
                   <i className={`${item.icon}`} />
                 </a>
@@ -40,14 +35,7 @@ const Topheader = ({ contacts }) => {
         <ul className='top-header-nav'>
           <li>
             {' '}
-            <a
-              href='http://luxrealadria.com/admin/'
-              target='_blank'
-              rel='noreferrer'
-            >
-              {' '}
-              Вход для агентов
-            </a>{' '}
+            <a href='/admin/'> Вход для агентов</a>{' '}
           </li>
         </ul>
       </div>
