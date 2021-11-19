@@ -44,7 +44,7 @@ class Contact(models.Model):
     title = models.CharField(_('Заголовок'), max_length=255, blank=True, null=True)
     text = models.TextField(_('Текст'), blank=True, null=True)
     phone_basic = models.CharField(_('Основной телефон'), max_length=25,)
-    phone_additional = models.CharField(_('Основной телефон'), max_length=25, blank=True, null=True)
+    phone_additional = models.CharField(_('Дополнительный телефон'), max_length=25, blank=True, null=True)
     email = models.EmailField(_('Электронная почта'),  blank=True, null=True)
     address_basic = models.TextField(_('Основной адрес'), blank=True, null=True)
     address_additional = models.TextField(_('Дополнительный адрес'), blank=True, null=True)
@@ -142,6 +142,17 @@ class MenuItem(models.Model):
     class Meta:
         verbose_name = _('Пункт меню')
         verbose_name_plural = _('Меню')
+
+    def __str__(self):
+        return self.title
+
+class SubMenuItem(models.Model):
+    title = models.CharField(_('Подпункт меню'), max_length=255, blank=True, null=True)
+    menu_item = models.ForeignKey('MenuItem', on_delete=models.CASCADE, related_name='submenu_items')
+
+    class Meta:
+        verbose_name = _('Подпункт меню')
+        verbose_name_plural = _('Подпункты меню')
 
     def __str__(self):
         return self.title
