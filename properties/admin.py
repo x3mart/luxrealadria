@@ -1,4 +1,5 @@
 from django.contrib import admin
+from modeltranslation.admin import TranslationAdmin
 from images.models import PropertyImage
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
@@ -19,7 +20,7 @@ class PropertyImageInline(admin.TabularInline):
     
     get_photo.short_description = 'Миниатюра'
 
-class PropertyAdmin(admin.ModelAdmin):
+class PropertyAdmin(TranslationAdmin):
     list_display = ('name', 'is_active', 'is_trend', 'region_colored', 'purpose_colored', 'category_colored')
     list_editable = ('is_active', 'is_trend')
     readonly_fields = ('unique_id',)
@@ -57,12 +58,12 @@ class PropertyAdmin(admin.ModelAdmin):
         return obj.category.title
 
 
-class PRSFAdmin(admin.ModelAdmin):
+class PRSFAdmin(TranslationAdmin):
     list_display = ('title', 'is_active')
     list_editable = ('is_active',)
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ('title', 'is_active', 'order')
     list_editable = ('is_active', 'order')
 

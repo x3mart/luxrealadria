@@ -5,9 +5,9 @@ from unidecode import unidecode
 import os
 from django.utils import timezone
 from ckeditor.fields import RichTextField
-from utils.images import get_tmb_path
 from django.template.defaultfilters import truncatechars
 from django.utils.html import strip_tags
+from utils.images import get_tmb_path
 
 
 # Create your models here.
