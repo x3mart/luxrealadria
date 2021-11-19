@@ -29,7 +29,7 @@ def get_price_range(request):
 
 @api_view(['GET',])
 def get_data_for_filter(request):
-    filter_data = FilterData.objects.all()
+    filter_data = FilterData.objects.first()
     filter_data.rooms = Property.objects.filter(is_active=True).distinct().order_by('rooms').values_list('rooms', flat=True)
     filter_data.closets = Property.objects.filter(is_active=True).distinct().order_by('closets').values_list('closets', flat=True)
     filter_data.categories = get_active_and_has_properties(Category)
@@ -37,7 +37,7 @@ def get_data_for_filter(request):
     filter_data.regions = get_active_and_has_properties(Region)
     filter_data.purposes = get_active_and_has_properties(Purpose)
     filter_data.price_range = get_filtered_data(Property, request).aggregate(max_price=Max('price'), min_price=Min('price'))
-    return Response(DataForFilterSerializer(filter_data).data)
+    return Response(DataForFilterSerializer(filter_data, many=False).data)
 
 
 @api_view(['GET',])
