@@ -77,6 +77,10 @@ class DataForFilterSerializer(serializers.Serializer):
 
 
 class PropertySerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = get_translatable_fields_source(self)
+    
     property_gallary = PropertyGallarySerializer(read_only=True, many=True)
     category = CategorySerializer(read_only=True, many=False)
     purpose = PurposeSerializer(read_only=True, many=False)
