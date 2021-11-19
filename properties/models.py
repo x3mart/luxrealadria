@@ -145,3 +145,6 @@ class FilterData(models.Model):
     price_range_from = models.CharField(_('Цена От'), max_length=255,)
     price_range_to = models.CharField(_('Цена До'), max_length=255,)
 
+    class Meta:
+        verbose_name = _('Фильтер')
+        verbose_name_plural = _('Фильтер')
