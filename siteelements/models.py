@@ -125,10 +125,10 @@ class Homepage(models.Model):
     subtitle = models.CharField(_('Подзаголовок'), max_length=255,)
     wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='homepage',)
     footer_text = RichTextField(_('Текст футера'), null=True, blank=True)
-    # recently_added_title = models.CharField(_('Недавно добавленные Заголовок'), null=True, blank=True, max_length=255,)
-    # recently_added_subtitle = models.CharField(_('Недавно добавленные Подзаголовок'), null=True, blank=True, max_length=255,)
-    # category_title = models.CharField(_('Категории Заголовок'), null=True, blank=True, max_length=255,)
-    # category_subtitle = models.CharField(_('Категории Подзаголовок'), null=True, blank=True, max_length=255,)
+    recently_added_title = models.CharField(_('Недавно добавленные Заголовок'), null=True, blank=True, max_length=255,)
+    recently_added_subtitle = models.CharField(_('Недавно добавленные Подзаголовок'), null=True, blank=True, max_length=255,)
+    category_title = models.CharField(_('Категории Заголовок'), null=True, blank=True, max_length=255,)
+    category_subtitle = models.CharField(_('Категории Подзаголовок'), null=True, blank=True, max_length=255,)
     class Meta:
         verbose_name = _('Домашняя страница')
         verbose_name_plural = _('Домашняя страница')
@@ -136,12 +136,12 @@ class Homepage(models.Model):
     def __str__(self):
         return 'Домашняя страница'
 
-# class MenuItem(models.Model):
-#     title = models.CharField(_('Пункт меню'), max_length=255, blank=True, null=True)
+class MenuItem(models.Model):
+    title = models.CharField(_('Пункт меню'), max_length=255, blank=True, null=True)
 
-    # class Meta:
-    #     verbose_name = _('Пункт меню')
-    #     verbose_name_plural = _('Меню')
+    class Meta:
+        verbose_name = _('Пункт меню')
+        verbose_name_plural = _('Меню')
 
-    # def __str__(self):
-    #     return self.title
+    def __str__(self):
+        return self.title
