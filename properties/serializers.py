@@ -59,7 +59,11 @@ class FeatureSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DataForFilterSerializer(serializers.Serializer):
+class DataForFilterSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = get_translatable_fields_source(self)
+
     max_price = serializers.IntegerField(read_only=True, source='price_range.max_price')
     min_price = serializers.IntegerField(read_only=True, source='price_range.min_price')
     categories = CategorySerializer(read_only=True, many=True)
@@ -68,6 +72,10 @@ class DataForFilterSerializer(serializers.Serializer):
     purposes = PurposeSerializer(read_only=True, many=True)
     rooms = serializers.SerializerMethodField()
     closets = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Feature
+        fields = ['room_title', 'room_any', 'closets_title', 'closets_any', 'categories_title', 'categories_any', 'statuses_title', 'statuses_any', 'purposes_title', 'purposes_any', 'price_range_from', 'price_range_to', 'rooms', 'max_price', 'min_price', 'categories', 'regions', 'statuses', 'purposes', 'closets',]
 
     def get_rooms(self, obj):
         return obj.rooms

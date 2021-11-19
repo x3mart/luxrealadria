@@ -37,9 +37,9 @@ urlpatterns = [
     path('auth/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # path to my app's endpoints
-    path("api/", include("properties.urls")),
-    path("api/", include("siteelements.urls")),
-    path("api/", include("articles.urls")),
+    # path("api/", include("properties.urls")),
+    # path("api/", include("siteelements.urls")),
+    # path("api/", include("articles.urls")),
 ]
 
 urlpatterns += i18n_patterns(

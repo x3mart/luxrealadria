@@ -130,3 +130,18 @@ class Property(models.Model):
             return truncatechars(strip_tags(self.description).replace("\r\n", " "), 80)
         return None
 
+
+class FilterData(models.Model):
+    room_title = models.CharField(_('Спальни'), max_length=255,)
+    room_any = models.CharField(_('Спальни любое кол-во'), max_length=255,)
+    closets_title = models.CharField(_('Санузлы'), max_length=255,)
+    closets_any = models.CharField(_('Санузлы любое кол-во'), max_length=255,)
+    categories_title = models.CharField(_('Категории'), max_length=255,)
+    categories_any = models.CharField(_('Любая категория'), max_length=255,)
+    statuses_title = models.CharField(_('Статус'), max_length=255,)
+    statuses_any = models.CharField(_('Любой статус'), max_length=255,)
+    purposes_title = models.CharField(_('Назначение'), max_length=255,)
+    purposes_any = models.CharField(_('Любое назначение'), max_length=255,)
+    price_range_from = models.CharField(_('Цена От'), max_length=255,)
+    price_range_to = models.CharField(_('Цена До'), max_length=255,)
+
