@@ -3,7 +3,7 @@ from modeltranslation.admin import TranslationAdmin
 from images.models import PropertyImage
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
-from properties.models import Category, Feature, Property, Purpose, Region, Status, FilterData
+from properties.models import Category, Feature, Property, Purpose, Region, Status
 
 # Register your models here.
 class PropertyImageInline(admin.TabularInline):
@@ -67,9 +67,6 @@ class CategoryAdmin(TranslationAdmin):
     list_display = ('title', 'is_active', 'order')
     list_editable = ('is_active', 'order')
 
-class FilterDataAdmin(TranslationAdmin):
-    pass
-
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Purpose, PRSFAdmin)
@@ -77,4 +74,3 @@ admin.site.register(Region, PRSFAdmin)
 admin.site.register(Status, PRSFAdmin)
 admin.site.register(Feature, PRSFAdmin)
 admin.site.register(Property, PropertyAdmin)
-admin.site.register(FilterData, FilterDataAdmin)

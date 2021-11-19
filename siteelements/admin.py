@@ -1,5 +1,6 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
+from properties.models import FilterData
 
 from siteelements.models import FAQ, Error404Page, Homepage, LegalInfo, LoginPage, MenuItem, PropertyPage, RegisterPage, SiteLogo, Contact, SubMenuItem, UsefullArticle
 from modeltranslation.admin import TranslationTabularInline
@@ -12,13 +13,22 @@ class NoAddDeleteAdmin(TranslationAdmin):
         return False
 
 
-
 class SubMenuItemInline(TranslationTabularInline):
     model = SubMenuItem
+
+
 class MenuItemAdmin(TranslationAdmin):
     inlines = [SubMenuItemInline,]
 
 
+class FilterDataAdmin(TranslationAdmin):
+    def has_delete_permission(self, request, obj=None):
+        return False
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+admin.site.register(FilterData, FilterDataAdmin)
 admin.site.register(LegalInfo, NoAddDeleteAdmin)
 admin.site.register(SiteLogo)
 admin.site.register(MenuItem, MenuItemAdmin)
