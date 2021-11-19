@@ -29,4 +29,8 @@ class Error404PageTranslationOptions(TranslationOptions):
 
 @register(Homepage)
 class HomepageTranslationOptions(TranslationOptions):
-    fields = ('title', 'subtitle', 'footer_text')
+    fields = ('title', 'subtitle', 'footer_text', )
+
+# @register(MenuItem)
+# class MenuItemTranslationOptions(TranslationOptions):
+#     fields = ('title',)
