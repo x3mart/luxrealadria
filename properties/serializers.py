@@ -1,9 +1,14 @@
 from rest_framework import serializers
+from utils.translate import get_translatable_fields_source
 from images.serializers import PropertyGallarySerializer
 from properties.models import Category, Feature, Property, Purpose, Region, Status
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = get_translatable_fields_source(self)
+
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Category
@@ -11,6 +16,10 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class StatusSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = get_translatable_fields_source(self)
+
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Status
@@ -18,6 +27,10 @@ class StatusSerializer(serializers.ModelSerializer):
 
 
 class PurposeSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = get_translatable_fields_source(self)
+
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Purpose
@@ -25,6 +38,10 @@ class PurposeSerializer(serializers.ModelSerializer):
 
 
 class RegionSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = get_translatable_fields_source(self)
+
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Region
@@ -32,6 +49,10 @@ class RegionSerializer(serializers.ModelSerializer):
 
 
 class FeatureSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = get_translatable_fields_source(self)
+
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Feature
