@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from utils.translate import get_translatable_fields_source
 from images.serializers import PropertyGallarySerializer
-from properties.models import Category, Feature, Property, Purpose, Region, Status
+from properties.models import Category, Feature, FilterData, Property, Purpose, Region, Status
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -74,7 +74,7 @@ class DataForFilterSerializer(serializers.ModelSerializer):
     closets = serializers.SerializerMethodField()
 
     class Meta:
-        model = Feature
+        model = FilterData
         fields = ['room_title', 'room_any', 'closets_title', 'closets_any', 'categories_title', 'categories_any', 'statuses_title', 'statuses_any', 'purposes_title', 'purposes_any', 'price_range_from', 'price_range_to', 'rooms', 'max_price', 'min_price', 'categories', 'regions', 'statuses', 'purposes', 'closets',]
 
     def get_rooms(self, obj):
