@@ -140,8 +140,7 @@ class MenuItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MenuItem
-        exclude = ('id',)
-
+        fields = ('title', 'submenu_items')
 
 class HomePageSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
