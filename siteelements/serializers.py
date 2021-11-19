@@ -4,7 +4,7 @@ from utils.translate import get_translatable_fields_source
 from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.serializers import CategorySerializer, PropertySerializer
-from siteelements.models import FAQ, Contact, Error404Page, Homepage, LegalInfo, SubMenuItem, UsefullArticle
+from siteelements.models import FAQ, Contact, Error404Page, Homepage, LegalInfo, MenuItem, SubMenuItem, UsefullArticle
 
 
 class FAQItemSerializer(serializers.ModelSerializer):
@@ -139,7 +139,7 @@ class MenuItemSerializer(serializers.ModelSerializer):
     submenu_items = SubMenuItemSerializer(read_only=True, many=True)
 
     class Meta:
-        model = UsefullArticle
+        model = MenuItem
         exclude = ('id',)
 
 
