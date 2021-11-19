@@ -4,7 +4,7 @@ from utils.translate import get_translatable_fields_source
 from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.serializers import CategorySerializer, PropertySerializer
-from siteelements.models import FAQ, Contact, Error404Page, Homepage, LegalInfo, UsefullArticle
+from siteelements.models import FAQ, Contact, Error404Page, Homepage, LegalInfo, SubMenuItem, UsefullArticle
 
 
 class FAQItemSerializer(serializers.ModelSerializer):
@@ -121,6 +121,28 @@ class Error404PageSerializer(serializers.ModelSerializer):
         exclude = ('id',)
 
 
+class SubMenuItemSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = get_translatable_fields_source(self)
+
+    class Meta:
+        model = SubMenuItem
+        fields = ('title',)
+
+
+class MenuItemSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = get_translatable_fields_source(self)
+    
+    submenu_items = SubMenuItemSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = UsefullArticle
+        exclude = ('id',)
+
+
 class HomePageSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -131,6 +153,7 @@ class HomePageSerializer(serializers.ModelSerializer):
     trends = PropertySerializer(read_only=True, many=True)
     recently_added = PropertySerializer(read_only=True, many=True)
     contact = ContactPageSerializer(read_only=True, many=False)
+    menu_items = MenuItemSerializer(read_only=True, many=True)
 
     class Meta:
         model = Homepage
