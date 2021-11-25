@@ -1,6 +1,4 @@
-from django.db.models import fields
 from rest_framework import serializers
-from utils.translate import get_translatable_fields_source
 from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.serializers import CategorySerializer, PropertySerializer
@@ -8,18 +6,13 @@ from siteelements.models import FAQ, Contact, Error404Page, Homepage, LegalInfo,
 
 
 class FAQItemSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super(FAQItemSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
+
     class Meta:
         model = FAQItem
         fields = '__all__'
 
 
 class FAQSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super(FAQSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
     faq_items = FAQItemSerializer(read_only=True, many=True)
     class Meta:
         model = FAQ
@@ -27,17 +20,12 @@ class FAQSerializer(serializers.ModelSerializer):
 
 
 class LegaInfoItemSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super(LegaInfoItemSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
+
     class Meta:
         model = LegalInfoItem
         fields = '__all__'
 
 class LegalIfoPageSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super(LegalIfoPageSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
         
     legal_info_items = LegaInfoItemSerializer(read_only=True, many=True)
     class Meta:
@@ -45,9 +33,6 @@ class LegalIfoPageSerializer(serializers.ModelSerializer):
         exclude = ('id',)
 
 class SocialSerializer(serializers.ModelSerializer):
-    # def __init__(self, *args, **kwargs):
-    #     super(SocialSerializer, self).__init__(*args, **kwargs)
-    #     self.fields = get_translatable_fields_source(self)
 
     class Meta:
         model = Social
@@ -55,18 +40,12 @@ class SocialSerializer(serializers.ModelSerializer):
 
 
 class MessengerSerializer(serializers.ModelSerializer):
-    # def __init__(self, *args, **kwargs):
-    #     super(MessengerSerializer, self).__init__(*args, **kwargs)
-    #     self.fields = get_translatable_fields_source(self)
 
     class Meta:
         model = Messenger
         fields = '__all__'
 
 class ContactPageSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super(ContactPageSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
 
     socials = SocialSerializer(read_only=True, many=True)
     messengers = MessengerSerializer(read_only=True, many=True)
@@ -77,19 +56,12 @@ class ContactPageSerializer(serializers.ModelSerializer):
 
 
 class UsefullArticlePageSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super(UsefullArticlePageSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     class Meta:
         model = UsefullArticle
         exclude = ('id',)
 
 
 class PropertyPageSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super(PropertyPageSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
 
     class Meta:
         model = UsefullArticle
@@ -97,45 +69,25 @@ class PropertyPageSerializer(serializers.ModelSerializer):
 
 
 class LoginPageSerializer(serializers.Serializer):
-    def __init__(self, *args, **kwargs):
-        super(LoginPageSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     wallpaper = serializers.ImageField(read_only=True, )
 
 
 class RegisterPageSerializer(serializers.Serializer):
-    def __init__(self, *args, **kwargs):
-        super(RegisterPageSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     wallpaper = serializers.ImageField(read_only=True, )
 
 class Error404PageSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super(Error404PageSerializer, self).__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     class Meta:
         model = Error404Page
         exclude = ('id',)
 
 
 class SubMenuItemSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     class Meta:
         model = SubMenuItem
         fields = ('title',)
 
 
 class MenuItemSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-    
     submenu_items = SubMenuItemSerializer(read_only=True, many=True)
 
     class Meta:
@@ -143,10 +95,6 @@ class MenuItemSerializer(serializers.ModelSerializer):
         fields = ('title', 'submenu_items')
 
 class HomePageSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     categories = CategorySerializer(read_only=True, many=True)
     faq = FAQSerializer(read_only=True, many=False)
     trends = PropertySerializer(read_only=True, many=True)

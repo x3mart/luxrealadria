@@ -16,9 +16,6 @@ class PropertyGallarySerializer(serializers.ModelSerializer):
         return None 
 
 class LogoSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
     class Meta:
         model = Logo
         fields = '__all__'

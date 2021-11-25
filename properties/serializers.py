@@ -5,10 +5,6 @@ from properties.models import Category, Feature, FilterData, Property, Purpose, 
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Category
@@ -16,10 +12,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class StatusSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Status
@@ -27,10 +19,6 @@ class StatusSerializer(serializers.ModelSerializer):
 
 
 class PurposeSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Purpose
@@ -38,10 +26,6 @@ class PurposeSerializer(serializers.ModelSerializer):
 
 
 class RegionSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Region
@@ -49,10 +33,6 @@ class RegionSerializer(serializers.ModelSerializer):
 
 
 class FeatureSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     properties_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Feature
@@ -60,10 +40,6 @@ class FeatureSerializer(serializers.ModelSerializer):
 
 
 class DataForFilterSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-
     max_price = serializers.IntegerField(read_only=True, source='price_range.max_price')
     min_price = serializers.IntegerField(read_only=True, source='price_range.min_price')
     categories = CategorySerializer(read_only=True, many=True)
@@ -84,11 +60,7 @@ class DataForFilterSerializer(serializers.ModelSerializer):
         return obj.closets
 
 
-class PropertySerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields = get_translatable_fields_source(self)
-    
+class PropertySerializer(serializers.ModelSerializer):   
     property_gallary = PropertyGallarySerializer(read_only=True, many=True)
     category = CategorySerializer(read_only=True, many=False)
     purpose = PurposeSerializer(read_only=True, many=False)
