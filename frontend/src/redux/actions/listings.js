@@ -11,8 +11,10 @@ import {
 } from './types'
 
 export const load_all_properties = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -35,8 +37,10 @@ export const load_all_properties = () => async dispatch => {
 }
 
 export const load_properties_by_page = n => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -59,8 +63,10 @@ export const load_properties_by_page = n => async dispatch => {
 }
 
 export const load_single_property = id => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -83,8 +89,10 @@ export const load_single_property = id => async dispatch => {
 }
 
 export const load_sorted_list = filters => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },

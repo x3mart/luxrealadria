@@ -9,8 +9,10 @@ import {
 } from './types'
 
 export const load_all_articles = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -33,8 +35,10 @@ export const load_all_articles = () => async dispatch => {
 }
 
 export const load_articles_by_page = n => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -57,8 +61,10 @@ export const load_articles_by_page = n => async dispatch => {
 }
 
 export const load_single_article = id => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },

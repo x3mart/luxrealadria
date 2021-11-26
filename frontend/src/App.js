@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css'
 
@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 
 import MainLayout from './components/layouts/MainLayout'
+import LanguageWrapper from './components/wrappers/LanguageWrapper'
 
 // Preloader
 const Preloader = React.lazy(() => import('./components/layouts/Preloader'))
@@ -24,9 +25,9 @@ const Listingdetails = React.lazy(() =>
 const Contacts = React.lazy(() => import('./components/pages/Contacts'))
 
 const App = () => {
-
   return (
     <Provider store={store}>
+      <LanguageWrapper />
       <Router>
         <Suspense fallback={<div></div>}>
           <Preloader />
@@ -38,10 +39,10 @@ const App = () => {
                 '/articles/:id',
                 '/listing',
                 '/listing/:id',
-                
+
                 '/legal',
                 '/contacts',
-                
+
                 '/',
               ]}
             >
@@ -51,15 +52,11 @@ const App = () => {
                   <Route exact path='/articles' component={Bloglist} />
                   <Route exact path='/articles/:id' component={Blogsingle} />
                   <Route exact path='/listing' component={Listinglist} />
-                  <Route
-                    exact
-                    path='/listing/:id'
-                    component={Listingdetails}
-                  />
-                  
+                  <Route exact path='/listing/:id' component={Listingdetails} />
+
                   <Route path='/legal' component={Legal} />
                   <Route path='/contacts' component={Contacts} />
-                  
+
                   <Route component={Error} />
                 </Switch>
               </MainLayout>
@@ -67,6 +64,7 @@ const App = () => {
           </Switch>
         </Suspense>
       </Router>
+      {/* </LanguageWrapper> */}
     </Provider>
   )
 }
