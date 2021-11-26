@@ -84,7 +84,7 @@ class Error404PageSerializer(serializers.ModelSerializer):
 class SubMenuItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubMenuItem
-        fields = ('title',)
+        fields = ('title', 'link')
 
 
 class MenuItemSerializer(serializers.ModelSerializer):
@@ -92,7 +92,7 @@ class MenuItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MenuItem
-        fields = ('title', 'submenu_items')
+        fields = ('title', 'submenu_items', 'link')
 
 class HomePageSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(read_only=True, many=True)
