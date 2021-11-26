@@ -7,8 +7,10 @@ import {
 
 
 export const get_all_filters = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },

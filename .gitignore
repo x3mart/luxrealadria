@@ -177,3 +177,5 @@ sqlite3.db
 
 #vsc
 .vscode/
+
+/.history/

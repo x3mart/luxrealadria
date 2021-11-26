@@ -2,8 +2,10 @@ import axios from 'axios'
 import { GET_HOMEPAGE_SUCCESS, GET_HOMEPAGE_FAIL } from './types'
 
 export const load_homepage = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },

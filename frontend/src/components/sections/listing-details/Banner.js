@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { numberWithSpaces } from '../../../helper/helper'
+
 const Banner = ({ listing }) => {
   return (
     <>
@@ -16,6 +18,7 @@ const Banner = ({ listing }) => {
                 {listing.purpose && listing.purpose.title}
               </span>
               <h1 className='text-white'>{listing.name}</h1>
+              <h2 className='text-white'>€ {numberWithSpaces(listing.price)}</h2>
               {listing.address && (
                 <span className='listing-address'>
                   {' '}
