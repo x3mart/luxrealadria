@@ -93,6 +93,7 @@ class MenuItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
         fields = ('title', 'submenu_items', 'link')
+        ordering = ("-id",)
 
 class HomePageSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(read_only=True, many=True)
