@@ -138,6 +138,7 @@ class Homepage(models.Model):
 
 class MenuItem(models.Model):
     title = models.CharField(_('Пункт меню'), max_length=255, blank=True, null=True)
+    link = models.CharField(_('Ссылка'), max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = _('Пункт меню')
@@ -148,6 +149,7 @@ class MenuItem(models.Model):
 
 class SubMenuItem(models.Model):
     title = models.CharField(_('Подпункт меню'), max_length=255, blank=True, null=True)
+    link = models.CharField(_('ссылка'), max_length=255, blank=True, null=True)
     menu_item = models.ForeignKey('MenuItem', on_delete=models.CASCADE, related_name='submenu_items')
 
     class Meta:
