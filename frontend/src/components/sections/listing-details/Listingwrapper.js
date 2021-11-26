@@ -117,7 +117,7 @@ class Listingwrapper extends Component {
               </div>
               {/* Content End */}
 
-              <div className='section section-padding pt-0 acr-listing-features'>
+              <div className='section section-padding acr-listing-features'>
                 <h4>Характеристики</h4>
                 <div className='row'>
                   <div className='col-lg-6 col-md-6'>
@@ -146,8 +146,6 @@ class Listingwrapper extends Component {
                           {listing && listing.unique_id && listing.unique_id}
                         </span>
                       </div>
-
-                      
                     </div>
                   </div>
                   <div className='col-lg-6 col-md-6'>
@@ -176,24 +174,24 @@ class Listingwrapper extends Component {
                             listing.region.title}
                         </span>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
-                
               </div>
 
-              <div className='section pt-0'>
-                <h4>Видео объекта</h4>
-                
-                <div className='embed-responsive embed-responsive-21by9'>
-                  <iframe
-                    title='video'
-                    className='embed-responsive-item'
-                    src={`https://www.youtube.com/embed/${listing.video}`}
-                  />
+              {listing && listing.video && (
+                <div className='section pt-0'>
+                  <h4>Видео объекта</h4>
+
+                  <div className='embed-responsive embed-responsive-21by9'>
+                    <iframe
+                      title='video'
+                      className='embed-responsive-item'
+                      src={`https://www.youtube.com/embed/${listing.video}`}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             {/* Listings End */}
             {/* Sidebar Start */}

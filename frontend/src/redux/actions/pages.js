@@ -15,8 +15,10 @@ import {
 } from './types'
 
 export const load_properties_page = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -38,8 +40,10 @@ export const load_properties_page = () => async dispatch => {
   }
 }
 export const load_login_page = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -61,8 +65,10 @@ export const load_login_page = () => async dispatch => {
   }
 }
 export const load_register_page = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -85,8 +91,10 @@ export const load_register_page = () => async dispatch => {
 }
 
 export const load_legal_page = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -109,8 +117,10 @@ export const load_legal_page = () => async dispatch => {
 }
 
 export const load_error_page = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
@@ -133,8 +143,10 @@ export const load_error_page = () => async dispatch => {
 }
 
 export const load_articles_page = () => async dispatch => {
+  const lang = localStorage.getItem('language')
   const config = {
     headers: {
+      'Accept-Language': lang,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },

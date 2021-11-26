@@ -5,6 +5,7 @@ import filters from './filters'
 import listings from './listings'
 import articles from './articles'
 import pages from './pages'
+import language from './language'
 
 export default combineReducers({
   auth,
@@ -13,4 +14,5 @@ export default combineReducers({
   listings,
   articles,
   pages,
+  language,
 })
