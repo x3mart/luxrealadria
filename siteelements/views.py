@@ -58,7 +58,7 @@ def get_contacts_page(request):
     contact = Contact.objects.first()
     contact.socials = Social.objects.filter(is_active=True)
     contact.messengers = Messenger.objects.filter(is_active=True)
-    return Response(ContactPageSerializer(contact, context={'request': request, "language": get_language()}).data)
+    return Response(ContactPageSerializer(contact).data)
     # except:
     #     return Response('Нет необходимой информации по разделу Контакты, Admin должен создать раздел через панель администратора')
 
@@ -67,7 +67,7 @@ def get_contacts_page(request):
 def get_usefull_articles_page(request):
     try:
         useful_article = UsefullArticle.objects.first()
-        return Response(UsefullArticlePageSerializer(useful_article, context={'request': request, "language": get_language()}).data)
+        return Response(UsefullArticlePageSerializer(useful_article).data)
     except:
         return Response('Нет необходимой информации по Юридическому разделу, Admin должен создать раздел через панель администратора')
 
@@ -77,7 +77,7 @@ def get_properties_page(request):
     try:
         properties_page = PropertyPage.objects.first()
         properties_page.feature_titles = Feature.objects.first()
-        return Response(PropertyPageSerializer(properties_page, context={'request': request, "language": get_language()}).data)
+        return Response(PropertyPageSerializer(properties_page).data)
     except:
         return Response('Нет необходимой информации по странице Недвижимости, Admin должен создать раздел через панель администратора')
 
