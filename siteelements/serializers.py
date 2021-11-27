@@ -72,7 +72,7 @@ class PropertyPageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PropertyPage
-        fields = ('id', 'title', 'text', 'wallpaper')
+        fields = ('id', 'title', 'text', 'wallpaper', 'feature_titles')
 
 
 class LoginPageSerializer(serializers.Serializer):
