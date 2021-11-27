@@ -71,7 +71,7 @@ class PropertyPageSerializer(serializers.ModelSerializer):
     feature_titles = FeatureSerializer(many=False, read_only=True)
 
     class Meta:
-        model = PropertyPage
+        model = UsefullArticle
         exclude = ('id',)
 
 
