@@ -74,12 +74,12 @@ def get_usefull_articles_page(request):
 
 @api_view(['GET',])
 def get_properties_page(request):
-    try:
-        properties_page = PropertyPage.objects.first()
-        properties_page.feature_titles = Feature.objects.first()
-        return Response(PropertyPageSerializer(properties_page).data)
-    except:
-        return Response('Нет необходимой информации по странице Недвижимости, Admin должен создать раздел через панель администратора')
+    # try:
+    properties_page = PropertyPage.objects.first()
+    properties_page.feature_titles = Feature.objects.first()
+    return Response(PropertyPageSerializer(properties_page).data)
+    # except:
+    #     return Response('Нет необходимой информации по странице Недвижимости, Admin должен создать раздел через панель администратора')
 
 @api_view(['GET',])
 def get_login_page(request):
