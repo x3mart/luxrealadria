@@ -2,7 +2,7 @@ from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 from properties.models import FilterData
 
-from siteelements.models import FAQ, Error404Page, Homepage, LegalInfo, LoginPage, MenuItem, PropertyPage, RegisterPage, SiteLogo, Contact, SubMenuItem, UsefullArticle
+from siteelements.models import FAQ, Error404Page, Feature, Homepage, LegalInfo, LoginPage, MenuItem, PropertyPage, RegisterPage, SiteLogo, Contact, SubMenuItem, UsefullArticle
 from modeltranslation.admin import TranslationTabularInline
 
 # Register your models here.
@@ -38,5 +38,6 @@ admin.site.register(Contact, NoAddDeleteAdmin)
 admin.site.register(Homepage, NoAddDeleteAdmin)
 admin.site.register(UsefullArticle, NoAddDeleteAdmin)
 admin.site.register(PropertyPage, NoAddDeleteAdmin)
+admin.site.register(Feature)
 # admin.site.register(LoginPage, NoAddDeleteAdmin)
 # admin.site.register(RegisterPage, NoAddDeleteAdmin)

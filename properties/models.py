@@ -74,20 +74,6 @@ class Status(models.Model):
         return self.title
 
 
-class Feature(models.Model):
-    title = models.CharField(_('Название'), max_length=255,)
-    icon = models.CharField(_('Иконка'), max_length=55,)
-    is_active = models.BooleanField(default=True)
-
-    class Meta:
-        verbose_name = _('Особенность')
-        verbose_name_plural = _('Особенности')
-
-
-    def __str__(self):
-        return self.title
-
-
 class Property(models.Model):
     name = models.CharField(_('Название'), max_length=255,)
     price = models.PositiveIntegerField(_('Цена'), default=0)
@@ -104,7 +90,6 @@ class Property(models.Model):
     purpose = models.ForeignKey('Purpose', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Назначение'))
     region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='properties', verbose_name=_('Регион'))
     statuses = models.ManyToManyField('Status', related_name='properties', verbose_name=_('Статус'), blank=True)
-    features = models.ManyToManyField('Feature', related_name='properties', verbose_name=_('Особенности'), blank=True)
     owner = models.ForeignKey('accounts.User', on_delete=models.PROTECT, null=True, blank=True, related_name='users_property')
     is_trend = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)

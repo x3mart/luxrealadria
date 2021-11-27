@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from utils.translate import get_translatable_fields_source
 from images.serializers import PropertyGallarySerializer
-from properties.models import Category, Feature, FilterData, Property, Purpose, Region, Status
+from properties.models import Category, FilterData, Property, Purpose, Region, Status
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -32,13 +32,6 @@ class RegionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class FeatureSerializer(serializers.ModelSerializer):
-    properties_count = serializers.IntegerField(read_only=True)
-    class Meta:
-        model = Feature
-        fields = '__all__'
-
-
 class DataForFilterSerializer(serializers.ModelSerializer):
     max_price = serializers.IntegerField(read_only=True, source='price_range.max_price')
     min_price = serializers.IntegerField(read_only=True, source='price_range.min_price')
@@ -66,7 +59,6 @@ class PropertySerializer(serializers.ModelSerializer):
     purpose = PurposeSerializer(read_only=True, many=False)
     region = RegionSerializer(read_only=True, many=False)
     statuses = StatusSerializer(read_only=True, many=True)
-    features = FeatureSerializer(read_only=True, many=True)
     tmb_wallpaper = serializers.SerializerMethodField(read_only=True)
     short_description = serializers.CharField(read_only=True)
     class Meta:

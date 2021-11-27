@@ -1,6 +1,6 @@
 from modeltranslation.translator import register, TranslationOptions
 
-from properties.models import Category, Purpose, Region, Status, Feature, Property, FilterData
+from properties.models import Category, Purpose, Region, Status, Property, FilterData
 
 
 @register(Category)
@@ -17,10 +17,6 @@ class RegionTranslationOptions(TranslationOptions):
 
 @register(Status)
 class StatusTranslationOptions(TranslationOptions):
-    fields = ('title',)
-
-@register(Feature)
-class FeatureTranslationOptions(TranslationOptions):
     fields = ('title',)
 
 @register(Property)

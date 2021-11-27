@@ -1,6 +1,6 @@
 from modeltranslation.translator import register, TranslationOptions
 
-from siteelements.models import LegalInfo, FAQ, Contact, UsefullArticle, PropertyPage, Error404Page, Homepage, MenuItem, SubMenuItem
+from siteelements.models import Feature, LegalInfo, FAQ, Contact, UsefullArticle, PropertyPage, Error404Page, Homepage, MenuItem, SubMenuItem
 
 
 @register(LegalInfo)
@@ -21,7 +21,7 @@ class UsefullArticleTranslationOptions(TranslationOptions):
 
 @register(PropertyPage)
 class PropertyPageTranslationOptions(TranslationOptions):
-    fields = ('title', 'text',)
+    fields = ('title', 'text', 'more_button', 'filter_title', 'new_property_title', 'property_description_title', 'features_title')
 
 @register(Error404Page)
 class Error404PageTranslationOptions(TranslationOptions):
@@ -29,7 +29,7 @@ class Error404PageTranslationOptions(TranslationOptions):
 
 @register(Homepage)
 class HomepageTranslationOptions(TranslationOptions):
-    fields = ('title', 'subtitle', 'footer_text', 'recently_added_title', 'recently_added_subtitle', 'category_title', 'category_subtitle')
+    fields = ('title', 'subtitle', 'footer_text', 'recently_added_title', 'recently_added_subtitle', 'category_title', 'category_subtitle', 'trend_title', 'trend_subtitle', 'login')
 
 @register(MenuItem)
 class MenuItemTranslationOptions(TranslationOptions):
@@ -38,3 +38,7 @@ class MenuItemTranslationOptions(TranslationOptions):
 @register(SubMenuItem)
 class SubMenuItemTranslationOptions(TranslationOptions):
     fields = ('title',)
+
+@register(Feature)
+class FeatureTranslationOptions(TranslationOptions):
+    fields = ('type_title', 'area_title', 'property_id_title', 'bathroom_title', 'bedroom_iitle', 'region_title',)

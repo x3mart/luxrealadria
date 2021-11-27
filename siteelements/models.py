@@ -19,6 +19,10 @@ class LegalInfo(models.Model):
 class FAQ(models.Model):
     title = models.CharField(_('Заголовок'), max_length=255,)
     subtitle = models.CharField(_('Подзаголовок'), max_length=255,)
+    call_us_title = models.CharField(_('Заголовок'), default='Все просто', max_length=255,)
+    call_us_text = models.CharField(_('Текст'), default='У вас возникли вопросы, жалобы, или предложения? Просто позвоните нам.', max_length=255,)
+    call_us_button = models.CharField(_('Кнопка'), default='Позвонить', max_length=255,)
+    
     
     class Meta:
         verbose_name = _('FAQ')
@@ -74,7 +78,11 @@ class PropertyPage(models.Model):
     wallpaper = models.ImageField(_('Изображение'), max_length=255, upload_to='properties',)
     title = models.CharField(_('Заголовок'), max_length=255, blank=True, null=True)
     text = models.TextField(_('Текст'), blank=True, null=True)
-
+    more_button = models.CharField(_('Кнопка подробнее'), default='Подробнее', max_length=255,)
+    filter_title = models.CharField(_('Заголовок фильтра'), default='Фильтр объектов', max_length=255,)
+    new_property_title = models.CharField(_('Заголовок нвых объектов'), default='Новые объекты', max_length=255,)
+    property_description_title = models.CharField(_('Заголовок описания объекта'), default='Описание объекта', max_length=255,)
+    features_title = models.CharField(_('Заголовок характеристик объекта'), default='Характеристики', max_length=255,)
 
     class Meta:
         verbose_name = _('Недвижимость')
@@ -129,6 +137,9 @@ class Homepage(models.Model):
     recently_added_subtitle = models.CharField(_('Недавно добавленные Подзаголовок'), null=True, blank=True, max_length=255,)
     category_title = models.CharField(_('Категории Заголовок'), null=True, blank=True, max_length=255,)
     category_subtitle = models.CharField(_('Категории Подзаголовок'), null=True, blank=True, max_length=255,)
+    trend_title = models.CharField(_('В тренде Заголовок'), default='В тренде', max_length=255,)
+    trend_subtitle = models.CharField(_('В тренде  Подзаголовок'), default='Наши лучшие объекты', max_length=255,)
+    login = models.CharField(_('Вход для агентов'), default='Вход для агентов', max_length=255,)
     class Meta:
         verbose_name = _('Домашняя страница')
         verbose_name_plural = _('Домашняя страница')
@@ -159,3 +170,20 @@ class SubMenuItem(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Feature(models.Model):
+    type_title = models.CharField(_('Заголовок тип объекта'), default='Тип объекта', max_length=255,)
+    area_title = models.CharField(_('Заголовок метраж'), default='Метраж', max_length=255,)
+    property_id_title = models.CharField(_('Заголовок Id объекта'), default='Id объекта', max_length=255,)
+    bathroom_title = models.CharField(_('Заголовок санузел'), default='Санузлов', max_length=255,)
+    bedroom_iitle = models.CharField(_('Заголовок спальня'), default='Спальни', max_length=255,)
+    region_title = models.CharField(_('Заголовок регион'), default='Регион', max_length=255,)
+
+    class Meta:
+        verbose_name = _('Заголовоки Характеристик ')
+        verbose_name_plural = _('Заголовоки Характеристик')
+
+
+    def __str__(self):
+        return 'Заголовоки Характеристик'

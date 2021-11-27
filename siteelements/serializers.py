@@ -2,7 +2,7 @@ from rest_framework import serializers
 from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.serializers import CategorySerializer, PropertySerializer
-from siteelements.models import FAQ, Contact, Error404Page, Homepage, LegalInfo, MenuItem, SubMenuItem, UsefullArticle
+from siteelements.models import FAQ, Contact, Error404Page, Feature, Homepage, LegalInfo, MenuItem, SubMenuItem, UsefullArticle
 
 
 class FAQItemSerializer(serializers.ModelSerializer):
@@ -93,6 +93,13 @@ class MenuItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
         fields = ('id', 'title', 'submenu_items', 'link')
+
+
+class FeatureSerializer(serializers.ModelSerializer):
+    properties_count = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = Feature
+        fields = '__all__'
 
 class HomePageSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(read_only=True, many=True)
