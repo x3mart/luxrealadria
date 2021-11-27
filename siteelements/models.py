@@ -187,3 +187,16 @@ class Feature(models.Model):
 
     def __str__(self):
         return 'Заголовоки Характеристик'
+
+
+class MobileMenu(models.Model):
+    menu_title = models.CharField(_('Пункт меню'), max_length=255, default='Меню')
+    social_title = models.CharField(_('Пункт соцсети'), max_length=255, default='соцсети')
+    messenger_title = models.CharField(_('Пункт мессенджеры'), max_length=255, default='мессенджеры')
+
+    class Meta:
+        verbose_name = _('Мобильное меню')
+        verbose_name_plural = _('Мобильное меню')
+
+    def __str__(self):
+        return 'Мобильное меню'

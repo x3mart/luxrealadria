@@ -1,6 +1,6 @@
 from modeltranslation.translator import register, TranslationOptions
 
-from siteelements.models import Feature, LegalInfo, FAQ, Contact, UsefullArticle, PropertyPage, Error404Page, Homepage, MenuItem, SubMenuItem
+from siteelements.models import Feature, LegalInfo, FAQ, Contact, MobileMenu, UsefullArticle, PropertyPage, Error404Page, Homepage, MenuItem, SubMenuItem
 
 
 @register(LegalInfo)
@@ -42,3 +42,8 @@ class SubMenuItemTranslationOptions(TranslationOptions):
 @register(Feature)
 class FeatureTranslationOptions(TranslationOptions):
     fields = ('type_title', 'area_title', 'property_id_title', 'bathroom_title', 'bedroom_iitle', 'region_title',)
+
+
+@register(MobileMenu)
+class MobileMenuTranslationOptions(TranslationOptions):
+    fields = ('menu_title', 'social_title', 'messenger_title')
