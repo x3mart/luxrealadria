@@ -5,7 +5,7 @@ from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.models import Category, Property, Status
 from properties.views import SomeData
-from siteelements.models import FAQ, Contact, Error404Page, Homepage, LegalInfo, LoginPage, MenuItem, PropertyPage, RegisterPage, UsefullArticle
+from siteelements.models import FAQ, Contact, Error404Page, Feature, Homepage, LegalInfo, LoginPage, MenuItem, MobileMenu, PropertyPage, RegisterPage, UsefullArticle
 from siteelements.serializers import ContactPageSerializer, Error404PageSerializer, HomePageSerializer, LegalIfoPageSerializer, LoginPageSerializer, PropertyPageSerializer, RegisterPageSerializer, UsefullArticlePageSerializer
 from django.db.models import Prefetch
 from utils.filters import get_active_properties_with_prefetch, get_active_and_has_properties
@@ -34,6 +34,11 @@ def get_home_page(request):
         home.menu_items = MenuItem.objects.prefetch_related('submenu_items')
     except:
         home.menu_items = None
+    try:
+        home.mobile_menu = MobileMenu.objects.first()
+    except:
+        home.mobile_menu = None
+    home.more_button = PropertyPage.objects.first().more_button
     return Response(HomePageSerializer(home, context={'request': request, "language": get_language()}).data)
     # except:
     #     return Response('Нет необходимой информации по Домашней сранице, Admin должен создать раздел через панель администратора')
@@ -71,6 +76,7 @@ def get_usefull_articles_page(request):
 def get_properties_page(request):
     try:
         properties_page = PropertyPage.objects.first()
+        properties_page.feature_titles = Feature.objects.first()
         return Response(PropertyPageSerializer(properties_page, context={'request': request, "language": get_language()}).data)
     except:
         return Response('Нет необходимой информации по странице Недвижимости, Admin должен создать раздел через панель администратора')

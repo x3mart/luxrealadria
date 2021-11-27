@@ -2,7 +2,7 @@ from rest_framework import serializers
 from contacts.models import Messenger, Social
 from legals.models import FAQItem, LegalInfoItem
 from properties.serializers import CategorySerializer, PropertySerializer
-from siteelements.models import FAQ, Contact, Error404Page, Feature, Homepage, LegalInfo, MenuItem, SubMenuItem, UsefullArticle
+from siteelements.models import FAQ, Contact, Error404Page, Feature, Homepage, LegalInfo, MenuItem, MobileMenu, PropertyPage, SubMenuItem, UsefullArticle
 
 
 class FAQItemSerializer(serializers.ModelSerializer):
@@ -61,10 +61,17 @@ class UsefullArticlePageSerializer(serializers.ModelSerializer):
         exclude = ('id',)
 
 
+class FeatureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feature
+        fields = '__all__'
+
+
 class PropertyPageSerializer(serializers.ModelSerializer):
+    feature_titles = FeatureSerializer(many=False, read_only=True)
 
     class Meta:
-        model = UsefullArticle
+        model = PropertyPage
         exclude = ('id',)
 
 
@@ -95,11 +102,13 @@ class MenuItemSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'submenu_items', 'link')
 
 
-class FeatureSerializer(serializers.ModelSerializer):
-    properties_count = serializers.IntegerField(read_only=True)
+class MobileMenuSerializer(serializers.ModelSerializer):
+    submenu_items = SubMenuItemSerializer(read_only=True, many=True)
+
     class Meta:
-        model = Feature
-        fields = '__all__'
+        model = MobileMenu
+        fields = ('menu_title', 'social_title', 'messenger_title',)
+
 
 class HomePageSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(read_only=True, many=True)
@@ -108,6 +117,8 @@ class HomePageSerializer(serializers.ModelSerializer):
     recently_added = PropertySerializer(read_only=True, many=True)
     contact = ContactPageSerializer(read_only=True, many=False)
     menu_items = MenuItemSerializer(read_only=True, many=True)
+    mobile_menu = MenuItemSerializer(read_only=True, many=False)
+    more_button = serializers.CharField(read_only=True, source='more_button')
 
     class Meta:
         model = Homepage
