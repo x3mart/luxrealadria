@@ -43,9 +43,9 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path("api/", include("properties.urls")),
-    path("api/", include("siteelements.urls")),
-    path("api/", include("articles.urls")),
+    # path("api/", include("properties.urls")),
+    # path("api/", include("siteelements.urls")),
+    # path("api/", include("articles.urls")),
     )
 
 if settings.DEBUG:
