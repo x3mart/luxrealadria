@@ -29,7 +29,7 @@ class Error404PageTranslationOptions(TranslationOptions):
 
 @register(Homepage)
 class HomepageTranslationOptions(TranslationOptions):
-    fields = ('title', 'subtitle', 'footer_text', 'recently_added_title', 'recently_added_subtitle', 'category_title', 'category_subtitle', 'trend_title', 'trend_subtitle', 'login')
+    fields = ('title', 'subtitle', 'footer_text', 'recently_added_title', 'recently_added_subtitle', 'category_title', 'category_subtitle', 'trend_title', 'trend_subtitle', 'login', 'search_button')
 
 @register(MenuItem)
 class MenuItemTranslationOptions(TranslationOptions):
