@@ -118,7 +118,7 @@ class HomePageSerializer(serializers.ModelSerializer):
     contact = ContactPageSerializer(read_only=True, many=False)
     menu_items = MenuItemSerializer(read_only=True, many=True)
     mobile_menu = MenuItemSerializer(read_only=True, many=False)
-    more_button = serializers.CharField(read_only=True, source='more_button')
+    more_button = serializers.CharField(read_only=True,)
 
     class Meta:
         model = Homepage
