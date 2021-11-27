@@ -140,6 +140,7 @@ class Homepage(models.Model):
     trend_title = models.CharField(_('В тренде Заголовок'), default='В тренде', max_length=255,)
     trend_subtitle = models.CharField(_('В тренде  Подзаголовок'), default='Наши лучшие объекты', max_length=255,)
     login = models.CharField(_('Вход для агентов'), default='Вход для агентов', max_length=255,)
+    search_button = models.CharField(_('Кнопка поиск'), default='Поиск объектов', max_length=255,)
     class Meta:
         verbose_name = _('Домашняя страница')
         verbose_name_plural = _('Домашняя страница')
