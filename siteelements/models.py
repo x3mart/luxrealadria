@@ -143,6 +143,7 @@ class MenuItem(models.Model):
     class Meta:
         verbose_name = _('Пункт меню')
         verbose_name_plural = _('Меню')
+        ordering = ('-id',)
 
     def __str__(self):
         return self.title
