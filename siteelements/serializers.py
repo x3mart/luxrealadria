@@ -56,6 +56,7 @@ class ContactPageSerializer(serializers.ModelSerializer):
 
 
 class UsefullArticlePageSerializer(serializers.ModelSerializer):
+    more_button = serializers.CharField(read_only=True,)
     class Meta:
         model = UsefullArticle
         exclude = ('id',)

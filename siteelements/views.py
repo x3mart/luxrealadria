@@ -67,9 +67,10 @@ def get_contacts_page(request):
 def get_usefull_articles_page(request):
     try:
         useful_article = UsefullArticle.objects.first()
+        useful_article.more_button = PropertyPage.objects.first().more_button
         return Response(UsefullArticlePageSerializer(useful_article).data)
     except:
-        return Response('Нет необходимой информации по Юридическому разделу, Admin должен создать раздел через панель администратора')
+        return Response('Нет необходимой информации по разделу, Admin должен создать раздел через панель администратора')
 
 
 @api_view(['GET',])
