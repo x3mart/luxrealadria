@@ -30,7 +30,6 @@ const LanguageWrapper = ({ set_user_language }) => {
         set_user_language('en')
       }
     }
-    console.log(localStorage.getItem('language'))
   }, [])
 
   return <></>

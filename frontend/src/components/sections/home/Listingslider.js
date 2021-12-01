@@ -4,10 +4,6 @@ import { OverlayTrigger, Tooltip, Dropdown, NavLink } from 'react-bootstrap';
 import Slider from 'react-slick';
 import { connect } from 'react-redux'
 
-const bedstip = <Tooltip>Спальни</Tooltip>
-const bathstip = <Tooltip>Санузлы</Tooltip>
-const areatip = <Tooltip>Кв. метров</Tooltip>
-
 class Listingslider extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +19,7 @@ class Listingslider extends Component {
 
 
     render() {
-      const { home_page } = this.props
+      const { home_page, lang } = this.props
         const settings = {
             slidesToShow: 3,
             slidesToScroll: 1,
@@ -44,6 +40,37 @@ class Listingslider extends Component {
                 }
             ]
         }
+
+        let bedstip = <Tooltip>Спальни</Tooltip>
+        let bathstip = <Tooltip>Санузлы</Tooltip>
+        let areatip = <Tooltip>Площадь</Tooltip>
+        let daily = '/день'
+        let monthly = '/месяц'
+        let trend = 'В тренде'
+
+        if (lang === 'ru') {
+          bedstip = <Tooltip>Спальни</Tooltip>
+          bathstip = <Tooltip>Санузлы</Tooltip>
+          areatip = <Tooltip>Площадь кв м</Tooltip>
+          daily = '/день'
+          monthly = '/месяц'
+          trend = 'В тренде'
+        } else if (lang === 'en') {
+          bedstip = <Tooltip>Beds</Tooltip>
+          bathstip = <Tooltip>Baths</Tooltip>
+          areatip = <Tooltip>Area sq/m</Tooltip>
+          daily = ' per day'
+          monthly = ' per month'
+          trend = 'Trendy'
+        } else if (lang === 'mn') {
+          bedstip = <Tooltip>Beds</Tooltip>
+          bathstip = <Tooltip>Baths</Tooltip>
+          areatip = <Tooltip>Area sq/m</Tooltip>
+          daily = ' dnevno'
+          monthly = ' mjesecno'
+          trend = 'Trend'
+        }
+
         return (
           <div className='section section-padding listings'>
             <div className='container'>
@@ -70,7 +97,8 @@ class Listingslider extends Component {
                 {...settings}
               >
                 {/* Listing Start */}
-                {home_page && home_page.recently_added &&
+                {home_page &&
+                  home_page.recently_added &&
                   home_page.recently_added.map((item, i) => (
                     <div key={i} className='col-12'>
                       <div className='listing'>
@@ -85,7 +113,7 @@ class Listingslider extends Component {
                           <div className='listing-badges'>
                             {item.is_trend ? (
                               <span className='listing-badge rent'>
-                                В тренде
+                                {trend}
                               </span>
                             ) : (
                               ''
@@ -113,11 +141,15 @@ class Listingslider extends Component {
                           <span className='listing-price'>
                             {`€${item.price}`}
                             <span>
-                              {item.purpose.title == 'Посуточная аренда'
-                                ? '/день'
-                                : item.purpose.title == 'Продажа'
+                              {item.purpose.title == 'Посуточная аренда' ||
+                              item.purpose.title == 'Per Day Rent' ||
+                              item.purpose.title == 'Najam po danu'
+                                ? daily
+                                : item.purpose.title == 'Продажа' ||
+                                  item.purpose.title == 'For Sale' ||
+                                  item.purpose.title == 'Na prodaju'
                                 ? ''
-                                : '/месяц'}
+                                : monthly}
                             </span>{' '}
                           </span>
                           {item.short_description && (
@@ -159,7 +191,7 @@ class Listingslider extends Component {
                               to={`/listing/${item.id}`}
                               className='btn-custom btn-sm secondary'
                             >
-                              Подробнее
+                              {home_page.more_button}
                             </Link>
                           </div>
                         </div>
@@ -176,6 +208,7 @@ class Listingslider extends Component {
 
 const mapStateToProps = state => ({
   home_page: state.home.home,
+  lang: state.language.language,
 })
 
 export default connect(mapStateToProps)(Listingslider)

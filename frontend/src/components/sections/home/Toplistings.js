@@ -4,10 +4,6 @@ import { OverlayTrigger, Tooltip, Dropdown, NavLink } from 'react-bootstrap'
 import Slider from 'react-slick'
 import { connect } from 'react-redux'
 
-const bedstip = <Tooltip>Спальни</Tooltip>
-const bathstip = <Tooltip>Санузлы</Tooltip>
-const areatip = <Tooltip>Кв. метров</Tooltip>
-
 class Toplistings extends Component {
   constructor(props) {
     super(props)
@@ -22,7 +18,7 @@ class Toplistings extends Component {
   }
 
   render() {
-    const { home_page } = this.props
+    const { home_page, lang } = this.props
     const settings = {
       slidesToShow: 1,
       slidesToScroll: 1,
@@ -38,6 +34,37 @@ class Toplistings extends Component {
         },
       ],
     }
+
+    let bedstip = <Tooltip>Спальни</Tooltip>
+    let bathstip = <Tooltip>Санузлы</Tooltip>
+    let areatip = <Tooltip>Площадь</Tooltip>
+    let daily = '/день'
+    let monthly = '/месяц'
+    let trend = 'В тренде'
+
+    if (lang === 'ru') {
+      bedstip = <Tooltip>Спальни</Tooltip>
+      bathstip = <Tooltip>Санузлы</Tooltip>
+      areatip = <Tooltip>Площадь кв м</Tooltip>
+      daily = '/день'
+      monthly = '/месяц'
+      trend = 'В тренде'
+    } else if (lang === 'en') {
+      bedstip = <Tooltip>Beds</Tooltip>
+      bathstip = <Tooltip>Baths</Tooltip>
+      areatip = <Tooltip>Area sq/m</Tooltip>
+      daily = ' per day'
+      monthly = ' per month'
+      trend = 'Trendy'
+    } else if (lang === 'mn') {
+      bedstip = <Tooltip>Beds</Tooltip>
+      bathstip = <Tooltip>Baths</Tooltip>
+      areatip = <Tooltip>Area sq/m</Tooltip>
+      daily = ' dnevno'
+      monthly = ' mjesecno'
+      trend = 'Trend'
+    }
+
     return (
       <div className='section light-bg'>
         <div className='container top-listings'>
@@ -52,8 +79,10 @@ class Toplistings extends Component {
             />
           </div>
           <div className='section-title-wrap section-header'>
-            <h5 className='custom-primary'>В тренде</h5>
-            <h2 className='title'>Наши лучшие объекты</h2>
+            <h5 className='custom-primary'>
+              {home_page && home_page.trend_title}
+            </h5>
+            <h2 className='title'>{home_page && home_page.trend_subtitle}</h2>
           </div>
           <Slider
             className='top-listings-slider col-12'
@@ -61,32 +90,41 @@ class Toplistings extends Component {
             {...settings}
           >
             {/* Top Item Start */}
-            {home_page && home_page.trends && home_page.trends.map((item, i) => (
-              <div key={i}>
-                <div
-                  className='acr-top-listing-item bg-cover dark-overlay bg-center'
-                  style={{
-                    backgroundImage: 'url(' + item.wallpaper + ')',
-                  }}
-                >
-                  <div className='row'>
-                    <div className='col-lg-6'>
-                      <div className='acr-top-listing-body listing'>
-                        <div className='listing-body'>
-                          <h5 className='listing-title'>
-                            {' '}
-                            <Link to={`/listing/${item.id}`} title={item.name}>
-                              {item.name}
-                            </Link>{' '}
-                          </h5>
+            {home_page &&
+              home_page.trends &&
+              home_page.trends.map((item, i) => (
+                <div key={i}>
+                  <div
+                    className='acr-top-listing-item bg-cover dark-overlay bg-center'
+                    style={{
+                      backgroundImage: 'url(' + item.wallpaper + ')',
+                    }}
+                  >
+                    <div className='row'>
+                      <div className='col-lg-6'>
+                        <div className='acr-top-listing-body listing'>
+                          <div className='listing-body'>
+                            <h5 className='listing-title'>
+                              {' '}
+                              <Link
+                                to={`/listing/${item.id}`}
+                                title={item.name}
+                              >
+                                {item.name}
+                              </Link>{' '}
+                            </h5>
                             <span className='listing-price'>
                               {`€${item.price}`}
                               <span>
-                                {item.purpose.title == 'Посуточная аренда'
-                                  ? '/день'
-                                  : item.purpose.title == 'Продажа'
+                                {item.purpose.title == 'Посуточная аренда' ||
+                                item.purpose.title == 'Per Day Rent' ||
+                                item.purpose.title == 'Najam po danu'
+                                  ? daily
+                                  : item.purpose.title == 'Продажа' ||
+                                    item.purpose.title == 'For Sale' ||
+                                    item.purpose.title == 'Na prodaju'
                                   ? ''
-                                  : '/месяц'}
+                                  : monthly}
                               </span>{' '}
                             </span>
                             {item.short_description && (
@@ -132,7 +170,7 @@ class Toplistings extends Component {
                                 to={`/listing/${item.id}`}
                                 className='btn-custom btn-sm secondary'
                               >
-                                Подробнее
+                                {home_page.more_button}
                               </Link>
                             </div>
                           </div>
@@ -152,6 +190,7 @@ class Toplistings extends Component {
 
 const mapStateToProps = state => ({
   home_page: state.home.home,
+  lang: state.language.language,
 })
 
 export default connect(mapStateToProps)(Toplistings)

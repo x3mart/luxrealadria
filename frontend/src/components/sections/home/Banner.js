@@ -49,7 +49,6 @@ const Banner = ({ filters, home_page, update_filters, filter_values }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(1)
     return <Redirect to='/listing' />
   }
 
@@ -88,13 +87,22 @@ const Banner = ({ filters, home_page, update_filters, filter_values }) => {
   }
 
   const handleFilterChange = e => {
-    let value = e.target.value.slice(0, 4) !== 'Любо' ? e.target.value : ''
+    let value = ''
+    if (
+      e.target.value.slice(0, 4) == 'Любо' ||
+      e.target.value.slice(0, 3) == 'Any' ||
+      e.target.value.slice(0, 3) == 'Bil'
+    ) {
+      value = ''
+    } else {
+      value = e.target.value
+    }
     let obj = {
       title: e.target.title,
       name: e.target.name,
       value: value,
     }
-    update_filters(obj)
+    value !== '' && update_filters(obj)
     setValues({
       ...values,
       [e.target.title]: value,
@@ -122,43 +130,70 @@ const Banner = ({ filters, home_page, update_filters, filter_values }) => {
                 <div className='row'>
                   <div className='col-lg-3 col-md-6'>
                     <div className='form-group acr-custom-select'>
-                      <label>Регион: </label>
+                      <label>
+                        {filters && filters.regions_title
+                          ? filters.regions_title
+                          : 'Регион'}
+                        :{' '}
+                      </label>
                       <Select2
                         value={values.region__title}
                         onChange={handleFilterChange}
                         title='region__title'
-                        name='Регион'
+                        name={
+                          filters && filters.regions_title
+                            ? filters.regions_title
+                            : 'Регион'
+                        }
                         data={
                           filters &&
                           filters.regions && [
-                            'Любой регион',
+                            filters && filters.regions_any
+                              ? filters.regions_any
+                              : 'Любой регион',
                             ...homeRegion__title,
                           ]
                         }
                         options={{
-                          placeholder: 'Любой регион',
+                          placeholder:
+                            filters && filters.regions_any
+                              ? filters.regions_any
+                              : 'Любой регион',
                         }}
-                        // onChange={e => console.log(e.target)}
                       />
                     </div>
                   </div>
                   <div className='col-lg-3 col-md-6'>
                     <div className='form-group acr-custom-select'>
-                      <label>Назначение: </label>
+                      <label>
+                        {filters && filters.purposes_title
+                          ? filters.purposes_title
+                          : 'Назначение'}
+                        :{' '}
+                      </label>
                       <Select2
                         onChange={handleFilterChange}
                         value={values.purpose__title}
                         title='purpose__title'
-                        name='Назначение'
+                        name={
+                          filters && filters.purposes_title
+                            ? filters.purposes_title
+                            : 'Назначение'
+                        }
                         data={
                           filters &&
                           filters.purposes && [
-                            'Любое назначение',
+                            filters && filters.purposes_any
+                              ? filters.purposes_any
+                              : 'Любое назначение',
                             ...homePurpose__title,
                           ]
                         }
                         options={{
-                          placeholder: 'Любое назначение',
+                          placeholder:
+                            filters && filters.purposes_any
+                              ? filters.purposes_any
+                              : 'Любое назначение',
                         }}
                       />
                     </div>
@@ -166,9 +201,19 @@ const Banner = ({ filters, home_page, update_filters, filter_values }) => {
                   <div className='col-lg-4 col-md-6'>
                     <div className='form-group acr-custom-select'>
                       <div className='d-flex justify-content-between'>
-                        <div>От €{filters.min_price}</div>
+                        <div>
+                          {filters && filters.price_range_from
+                            ? filters.price_range_from
+                            : 'От'}{' '}
+                          €{filters.min_price}
+                        </div>
 
-                        <div>До €{values.price_range}</div>
+                        <div>
+                          {filters && filters.price_range_to
+                            ? filters.price_range_to
+                            : 'До'}{' '}
+                          €{values.price_range}
+                        </div>
                       </div>
                       <input
                         title='price_range'
@@ -176,7 +221,7 @@ const Banner = ({ filters, home_page, update_filters, filter_values }) => {
                         type='range'
                         className='form-range'
                         min={filters.min_price}
-                        max={filters.max_price}
+                        max={filters.max_price + 1}
                         step='10000'
                         id='customRange3'
                         value={values.price_range}
@@ -190,7 +235,9 @@ const Banner = ({ filters, home_page, update_filters, filter_values }) => {
                         to='/listing'
                         className='btn-custom secondary btn-block'
                       >
-                        Поиск объектов
+                        {home_page && home_page.search_button
+                          ? home_page.search_button
+                          : 'Поиск объектов'}
                       </Link>
                     </div>
                   </div>
@@ -203,81 +250,140 @@ const Banner = ({ filters, home_page, update_filters, filter_values }) => {
                   <div className='row'>
                     <div className='col-lg-3 col-md-6'>
                       <div className='acr-custom-select form-group'>
-                        <label>Спальни: </label>
+                        <label>
+                          {filters && filters.room_title
+                            ? filters.room_title
+                            : 'Спальни'}
+                          :{' '}
+                        </label>
                         <Select2
                           onChange={handleFilterChange}
                           value={values.rooms}
                           title='rooms'
-                          name='Спальни'
+                          name={
+                            filters && filters.room_title
+                              ? filters.room_title
+                              : 'Спальни'
+                          }
                           data={
                             filters &&
-                            filters.rooms && ['Любое кол-во', ...filters.rooms]
+                            filters.rooms && [
+                              filters && filters.room_any
+                                ? filters.room_any
+                                : 'Любое кол-во',
+                              ...filters.rooms,
+                            ]
                           }
                           options={{
-                            placeholder: 'Любое кол-во',
+                            placeholder:
+                              filters && filters.room_any
+                                ? filters.room_any
+                                : 'Любое кол-во',
                           }}
                         />
                       </div>
                     </div>
                     <div className='col-lg-3 col-md-6'>
                       <div className='acr-custom-select form-group'>
-                        <label>Санузлы: </label>
+                        <label>
+                          {filters && filters.closets_title
+                            ? filters.closets_title
+                            : 'Санузлы'}
+                          :{' '}
+                        </label>
                         <Select2
                           value={values.closets}
                           onChange={handleFilterChange}
                           title='closets'
-                          name='Санузлы'
+                          name={
+                            filters && filters.closets_title
+                              ? filters.closets_title
+                              : 'Санузлы'
+                          }
                           data={
                             filters &&
                             filters.closets && [
-                              'Любое кол-во',
+                              filters && filters.closets_any
+                                ? filters.closets_any
+                                : 'Любое кол-во',
                               ...filters.closets,
                             ]
                           }
                           options={{
-                            placeholder: 'Любое кол-во',
+                            placeholder:
+                              filters && filters.closets_any
+                                ? filters.closets_any
+                                : 'Любое кол-во',
                           }}
                         />
                       </div>
                     </div>
                     <div className='col-lg-3 col-md-6'>
                       <div className='acr-custom-select form-group'>
-                        <label>Тип: </label>
+                        <label>
+                          {filters && filters.categories_title
+                            ? filters.categories_title
+                            : 'Тип'}
+                          :{' '}
+                        </label>
                         <Select2
                           value={values.category__title}
                           onChange={handleFilterChange}
                           title='category__title'
-                          name='Тип'
+                          name={
+                            filters && filters.categories_title
+                              ? filters.categories_title
+                              : 'Тип'
+                          }
                           data={
                             filters &&
                             filters.categories && [
-                              'Любой тип',
+                              filters && filters.categories_any
+                                ? filters.categories_any
+                                : 'Любой тип',
                               ...homeCategory__title,
                             ]
                           }
                           options={{
-                            placeholder: 'Любой тип',
+                            placeholder:
+                              filters && filters.categories_any
+                                ? filters.categories_any
+                                : 'Любой тип',
                           }}
                         />
                       </div>
                     </div>
                     <div className='col-lg-3 col-md-6'>
                       <div className='form-group acr-custom-select'>
-                        <label>Статус: </label>
+                        <label>
+                          {filters && filters.statuses_title
+                            ? filters.statuses_title
+                            : 'Статус'}
+                          :{' '}
+                        </label>
                         <Select2
                           value={values.statuses__title}
                           onChange={handleFilterChange}
                           title='statuses__title'
-                          name='Статус'
+                          name={
+                            filters && filters.statuses_title
+                              ? filters.statuses_title
+                              : 'Статус'
+                          }
                           data={
                             filters &&
                             filters.statuses && [
-                              'Любой статус',
+                              filters && filters.statuses_any
+                                ? filters.statuses_any
+                                : 'Любой статус',
                               ...homeStatuses__title,
                             ]
                           }
                           options={{
-                            placeholder: 'Любой статус',
+                            placeholder:
+                              filters && filters.statuses_any
+                                ? filters.statuses_any
+                                : 'Любой статус',
                           }}
                         />
                       </div>
