@@ -9,6 +9,7 @@ const Bloglist = ({ articles_page, load_articles_page }) => {
   const [articlesPage, setArticlesPage] = useState({})
   const [wallpaper, setWallpaper] = useState('')
   const [title, setTitle] = useState('')
+  const [button, setButton] = useState('')
   useEffect(() => {
     load_articles_page()
   }, [])
@@ -18,6 +19,7 @@ const Bloglist = ({ articles_page, load_articles_page }) => {
       setArticlesPage(articles_page)
       setWallpaper(articles_page.wallpaper)
       setTitle(articles_page.title)
+      setButton(articles_page.more_button)
     }
   }, [articles_page])
   return (
@@ -29,7 +31,7 @@ const Bloglist = ({ articles_page, load_articles_page }) => {
       {articlesPage && (
         <>
           <Breadcrumb title={title} wallpaper={wallpaper} />
-          <Content page={articlesPage} />
+          <Content page={articlesPage} button={button} />
         </>
       )}
     </Fragment>
