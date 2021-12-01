@@ -14,9 +14,9 @@ class Footercontent extends Component {
                   <div className='footer-logo text-white mr-5'>
                     <Logo className='text-white' />
                   </div>
-                  <div dangerouslySetInnerHTML={{ __html: home_page.footer_text }} />
-                    
-        
+                  <div
+                    dangerouslySetInnerHTML={{ __html: home_page.footer_text }}
+                  />
                 </div>
               </div>
               <div className='row'>
@@ -27,18 +27,22 @@ class Footercontent extends Component {
                       home_page.contact.socials.map(item => (
                         <li key={item.id}>
                           {' '}
-                          <Link to={item.link}>
+                          <a href={item.link} target='_blank' rel='noreferrer'>
                             <i className={`${item.icon} pr-2`} />
-                          </Link>
+                          </a>
                         </li>
                       ))}
                     {home_page.contact && home_page.contact.email && (
                       <li>
                         {' '}
-                        <Link to={`mailto:${home_page.contact.email}`}>
+                        <a
+                          href={`mailto:${home_page.contact.email}`}
+                          // target='_blank'
+                          // rel='noreferrer'
+                        >
                           {' '}
                           <i className='fas fa-envelope' />{' '}
-                        </Link>{' '}
+                        </a>{' '}
                       </li>
                     )}
                   </ul>

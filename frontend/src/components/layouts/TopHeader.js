@@ -1,7 +1,19 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-const Topheader = ({ contacts }) => {
+const Topheader = ({ home_page }) => {
+
+  const [contacts, setContacts] = useState({})
+  const [login_text, setLogin_text] = useState('')
+
+  useEffect(() => {
+    if (home_page) {
+      setContacts(home_page.contact)
+      setLogin_text(home_page.login)
+    }
+  }, [home_page])
+
   return (
     <div className='top-header'>
       <div className='top-header-inner'>
@@ -46,7 +58,7 @@ const Topheader = ({ contacts }) => {
               rel='noreferrer'
             >
               {' '}
-              Вход для агентов
+              {login_text}
             </a>{' '}
           </li>
         </ul>
@@ -55,4 +67,8 @@ const Topheader = ({ contacts }) => {
   )
 }
 
-export default Topheader
+const mapStateToProps = state => ({
+  home_page: state.home.home,
+})
+
+export default connect(mapStateToProps)(Topheader)

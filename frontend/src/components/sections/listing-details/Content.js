@@ -3,10 +3,20 @@ import Banner from './Banner'
 import Listingwrapper from './Listingwrapper'
 import { useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { load_single_property } from '../../../redux/actions/listings'
+import {
+  load_single_property,
+  load_all_properties,
+  load_properties_by_page,
+} from '../../../redux/actions/listings'
 
-const Content = ({ load_single_property, listing, home_page }) => {
-
+const Content = ({
+  load_single_property,
+  listing,
+  home_page,
+  properties_page,
+  load_all_properties,
+  load_properties_by_page,
+}) => {
   const [singleProperty, setSingleProperty] = useState({})
   const [propertyImages, setPropertyImages] = useState([])
   const [propertyThumbs, setPropertyThumbs] = useState([])
@@ -56,6 +66,11 @@ const Content = ({ load_single_property, listing, home_page }) => {
 const mapStateToProps = state => ({
   home_page: state.home.home,
   listing: state.listings.listing,
+  properties_page: state.pages.properties_page,
 })
 
-export default connect(mapStateToProps, { load_single_property })(Content)
+export default connect(mapStateToProps, {
+  load_all_properties,
+  load_properties_by_page,
+  load_single_property,
+})(Content)

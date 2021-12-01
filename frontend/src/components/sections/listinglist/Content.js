@@ -12,14 +12,6 @@ import {
 } from '../../../redux/actions/listings'
 import { update_filters } from '../../../redux/actions/filters'
 
-const gallerytip = <Tooltip>Gallery</Tooltip>
-const gridtip = <Tooltip>Grid</Tooltip>
-const listtip = <Tooltip>List</Tooltip>
-const maptip = <Tooltip>Map</Tooltip>
-const bedstip = <Tooltip>Спальни</Tooltip>
-const bathstip = <Tooltip>Санузлы</Tooltip>
-const areatip = <Tooltip>Площадь</Tooltip>
-
 const Content = ({
   filters,
   load_all_properties,
@@ -29,6 +21,7 @@ const Content = ({
   update_filters,
   properties_page,
   load_sorted_list,
+  lang,
 }) => {
   const [filterValue, setFilterValue] = useState([])
 
@@ -39,13 +32,46 @@ const Content = ({
   const [labels, setLabels] = useState([])
   const [values, setValues] = useState([])
 
-  useEffect(() => {
-    load_sorted_list(filter_values ? filter_values : [])
-  }, [filter_values])
+  let bedstip = <Tooltip>Спальни</Tooltip>
+  let bathstip = <Tooltip>Санузлы</Tooltip>
+  let areatip = <Tooltip>Площадь</Tooltip>
+  let daily = '/день'
+  let monthly = '/месяц'
+  let trend = 'В тренде'
+
+  if (lang === 'ru') {
+    bedstip = <Tooltip>Спальни</Tooltip>
+    bathstip = <Tooltip>Санузлы</Tooltip>
+    areatip = <Tooltip>Площадь кв м</Tooltip>
+    daily = '/день'
+    monthly = '/месяц'
+    trend = 'В тренде'
+  } else if (lang === 'en') {
+    bedstip = <Tooltip>Beds</Tooltip>
+    bathstip = <Tooltip>Baths</Tooltip>
+    areatip = <Tooltip>Area sq/m</Tooltip>
+    daily = ' per day'
+    monthly = ' per month'
+    trend = 'Trendy'
+  } else if (lang === 'mn') {
+    bedstip = <Tooltip>Beds</Tooltip>
+    bathstip = <Tooltip>Baths</Tooltip>
+    areatip = <Tooltip>Area sq/m</Tooltip>
+    daily = ' dnevno'
+    monthly = ' mjesecno'
+    trend = 'Trend'
+  }
+
+  
+
+  // useEffect(() => {
+  //   (filter_values ? filter_values : [])
+  // }, [filter_values])
 
   useEffect(() => {
     if (filter_values) {
       setValues(filter_values)
+      load_sorted_list(filter_values)
     }
   }, [filter_values])
 
@@ -108,7 +134,7 @@ const Content = ({
               </Link>
               <div className='listing-badges'>
                 {item.is_trend ? (
-                  <span className='listing-badge rent'>В тренде</span>
+                  <span className='listing-badge rent'>{trend}</span>
                 ) : (
                   ''
                 )}
@@ -135,11 +161,15 @@ const Content = ({
               <span className='listing-price'>
                 {`€${item.price}`}
                 <span>
-                  {item.purpose.title == 'Посуточная аренда'
-                    ? '/день'
-                    : item.purpose.title == 'Продажа'
+                  {item.purpose.title == 'Посуточная аренда' ||
+                  item.purpose.title == 'Per Day Rent' ||
+                  item.purpose.title == 'Najam po danu'
+                    ? daily
+                    : item.purpose.title == 'Продажа' ||
+                      item.purpose.title == 'For Sale' ||
+                      item.purpose.title == 'Na prodaju'
                     ? ''
-                    : '/месяц'}
+                    : monthly}
                 </span>{' '}
               </span>
               <p className='listing-text'>{item.text}</p>
@@ -170,7 +200,7 @@ const Content = ({
                   to={`/listing/${item.id}`}
                   className='btn-custom btn-sm secondary'
                 >
-                  Подробнее
+                  {properties_page && properties_page.more_button}
                 </Link>
               </div>
             </div>
@@ -225,6 +255,11 @@ const Content = ({
                 filters={listingFilter}
                 vals={values}
                 setvals={setValues}
+                title={
+                  properties_page && properties_page.filter_title
+                    ? properties_page.filter_title
+                    : 'Фильтр объектов'
+                }
                 // action={}
               />
             )}
@@ -323,6 +358,7 @@ const mapStateToProps = state => ({
   filter_values: state.filters.values,
   listings: state.listings.listings,
   properties_page: state.pages.properties_page,
+  lang: state.language.language,
 })
 
 export default connect(mapStateToProps, {
