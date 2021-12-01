@@ -8,7 +8,12 @@ import {
   load_articles_by_page,
 } from '../../../redux/actions/articles'
 
-const Content = ({ load_all_articles, load_articles_by_page, articles }) => {
+const Content = ({
+  load_all_articles,
+  load_articles_by_page,
+  articles,
+  button,
+}) => {
   const [items, setItems] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(5)
@@ -44,7 +49,6 @@ const Content = ({ load_all_articles, load_articles_by_page, articles }) => {
     }
   }
 
-
   const RenderedItems = () => {
     if (items) {
       return items.map((item, i) => {
@@ -61,7 +65,7 @@ const Content = ({ load_all_articles, load_articles_by_page, articles }) => {
                   to={`/articles/${item.id}`}
                   className='btn-custom secondary btn-sm'
                 >
-                  Подробнее
+                  {button}
                 </Link>
               </div>
             </div>
