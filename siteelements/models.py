@@ -80,7 +80,7 @@ class PropertyPage(models.Model):
     text = models.TextField(_('Текст'), blank=True, null=True)
     more_button = models.CharField(_('Кнопка подробнее'), default='Подробнее', max_length=255,)
     filter_title = models.CharField(_('Заголовок фильтра'), default='Фильтр объектов', max_length=255,)
-    new_property_title = models.CharField(_('Заголовок нвых объектов'), default='Новые объекты', max_length=255,)
+    new_property_title = models.CharField(_('Заголовок новых объектов'), default='Новые объекты', max_length=255,)
     property_description_title = models.CharField(_('Заголовок описания объекта'), default='Описание объекта', max_length=255,)
     features_title = models.CharField(_('Заголовок характеристик объекта'), default='Характеристики', max_length=255,)
 
