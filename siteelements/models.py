@@ -83,6 +83,7 @@ class PropertyPage(models.Model):
     new_property_title = models.CharField(_('Заголовок новых объектов'), default='Новые объекты', max_length=255,)
     property_description_title = models.CharField(_('Заголовок описания объекта'), default='Описание объекта', max_length=255,)
     features_title = models.CharField(_('Заголовок характеристик объекта'), default='Характеристики', max_length=255,)
+    video_title = models.CharField(_('Заголовок Видео объекта'), default='Видео объекта', max_length=255,)
 
     class Meta:
         verbose_name = _('Недвижимость')

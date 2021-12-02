@@ -21,7 +21,7 @@ class UsefullArticleTranslationOptions(TranslationOptions):
 
 @register(PropertyPage)
 class PropertyPageTranslationOptions(TranslationOptions):
-    fields = ('title', 'text', 'more_button', 'filter_title', 'new_property_title', 'property_description_title', 'features_title')
+    fields = ('title', 'text', 'more_button', 'filter_title', 'new_property_title', 'property_description_title', 'features_title', 'video_title')
 
 @register(Error404Page)
 class Error404PageTranslationOptions(TranslationOptions):
