@@ -25,4 +25,4 @@ class PropertyTranslationOptions(TranslationOptions):
 
 @register(FilterData)
 class FilterDataTranslationOptions(TranslationOptions):
-    fields = ('room_title', 'room_any', 'closets_title', 'closets_any', 'categories_title', 'categories_any', 'statuses_title', 'statuses_any', 'purposes_title', 'purposes_any', 'price_range_from', 'price_range_to')
+    fields = ('room_title', 'room_any', 'closets_title', 'closets_any', 'categories_title', 'categories_any', 'statuses_title', 'statuses_any', 'purposes_title', 'purposes_any', 'price_range_from', 'price_range_to', 'regions_title', 'regions_any')

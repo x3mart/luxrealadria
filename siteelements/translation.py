@@ -9,7 +9,7 @@ class LegalInfoTranslationOptions(TranslationOptions):
 
 @register(FAQ)
 class FAQTranslationOptions(TranslationOptions):
-    fields = ('title', 'subtitle',)
+    fields = ('title', 'subtitle', 'call_us_title', 'call_us_text', 'call_us_button')
 
 @register(Contact)
 class ContactTranslationOptions(TranslationOptions):

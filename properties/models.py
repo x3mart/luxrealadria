@@ -125,6 +125,8 @@ class FilterData(models.Model):
     categories_any = models.CharField(_('Любая категория'), max_length=255,)
     statuses_title = models.CharField(_('Статус'), max_length=255,)
     statuses_any = models.CharField(_('Любой статус'), max_length=255,)
+    regions_title = models.CharField(_('Статус'), max_length=255,)
+    regions_any = models.CharField(_('Любой статус'), max_length=255,)
     purposes_title = models.CharField(_('Назначение'), max_length=255,)
     purposes_any = models.CharField(_('Любое назначение'), max_length=255,)
     price_range_from = models.CharField(_('Цена От'), max_length=255,)
