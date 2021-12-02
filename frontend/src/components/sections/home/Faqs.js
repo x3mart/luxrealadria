@@ -9,8 +9,12 @@ const Faqs = ({ home_page }) => {
         <div className='section'>
           <div className='container'>
             <div className='section-title-wrap section-header'>
-              <h5 className='custom-primary'>ЧаВо</h5>
-              <h2 className='title'>Часто задаваемые вопросы</h2>
+              <h5 className='custom-primary'>
+                {home_page && home_page.faq && home_page.faq.title}
+              </h5>
+              <h2 className='title'>
+                {home_page && home_page.faq && home_page.faq.subtitle}
+              </h2>
             </div>
             <div className='row'>
               <div className='col-lg-8 mb-lg-30'>

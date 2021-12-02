@@ -46,6 +46,7 @@ class Header extends HeaderComponent {
           {/* Top Header Start */}
           <Topheader
             contacts={home_page.contact}
+            login_text={home_page.login}
           />
           {/* Top Header End */}
           <LowHeader

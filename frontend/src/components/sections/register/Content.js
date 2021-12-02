@@ -57,7 +57,6 @@ const Content = ({signup, load_register_page, register_page, ...props}) => {
       if(!props.error){
         props.action()
       } else {
-        console.log(props.error.message)
       }
   }
 
